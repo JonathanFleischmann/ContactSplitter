@@ -27,9 +27,9 @@ class Scanner:
         while scanner_state.remaining_name.strip() != '':
             # Scan for title
             if salutation_scanner.next_word_salutation(scanner_state):
-                scanner_state = salutation_scanner.scan_salutation(scanner_state)
+                salutation_scanner.scan_salutation(scanner_state)
             elif title_scanner.next_word_title(scanner_state):
-                scanner_state = title_scanner.scan_title(scanner_state)
+                title_scanner.scan_title(scanner_state)
             else:
-                scanner_state = name_scanner.scan_name(scanner_state)
+                name_scanner.scan_name(scanner_state)
         return scanner_state

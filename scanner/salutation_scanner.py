@@ -27,31 +27,21 @@ class SalutationScanner:
     def scan_salutation(self, scanning_state: ScanningState) -> ScanningState:
         first_word = scanning_state.remaining_name.split(' ')[0]
 
-        if first_word in self.salutations:
-
-            if scanning_state.has_salutation():
-                raise ValueError(f"Multiple salutations found")
-            
-            token = Token(TokenType.SALUTATION, first_word)
-
-            scanning_state.token_list.append(token)
-            scanning_state.remaining_name = ' '.join(scanning_state.remaining_name.split(' ')[1:])
-            scanning_state.meta_data.language = self.salutations[first_word]["language"]
-            scanning_state.meta_data.gender = self.salutations[first_word]["gender"]
-            
-            return scanning_state
+        if first_word not in self.salutations:
+            raise ValueError(f"Salutation '{first_word}' not found in dictionary.")
         
-        raise ValueError(f"Salutation '{first_word}' not found in dictionary.")
+        scanning_state.update(
+            Token(TokenType.SALUTATION, first_word), 
+            ' '.join(scanning_state.remaining_name.split(' ')[1:]),
+            self.salutations[first_word]["language"],
+            self.salutations[first_word]["gender"]
+            )
+        
+        
     
 
 
     def next_word_salutation(self, scanning_state: ScanningState) -> bool:
-        
-        first_word = scanning_state.remaining_name.split(' ')[0]
 
-        if first_word in self.salutations:
-            return True
-        
-        return False
-        
+        return scanning_state.remaining_name.split(' ')[0] in self.salutations
         

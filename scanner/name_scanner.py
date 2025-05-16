@@ -3,6 +3,7 @@ import json
 from data_structures.token import Token, TokenType
 from data_structures.meta_data import Language, convert_string_to_language
 from data_structures.scanning_state import ScanningState
+from core import get_longest_of_values_contained, pop_first_word
 
 class NameScanner:
         
@@ -15,77 +16,37 @@ class NameScanner:
         with open(self.file_path, 'r', encoding='utf-8') as file:
             loaded_nobility_particles = json.load(file)
             self.nobility_particles = {k: convert_string_to_language(v) for k, v in loaded_nobility_particles.items()}
+                    
+
+
+    def is_valid_name_after_prefix(self, remaining_name: str, prefix: str) -> bool:
+        name = remaining_name.removeprefix(prefix).strip()
+        if name == "":
+            raise ValueError(f"Kein Name nach Präfix '{prefix}' in '{remaining_name}' gefunden.")
+        if not name.split(' ')[0][0].isupper():
+            raise ValueError(f"Name nach Präfix '{prefix}' beginnt nicht mit Großbuchstaben: '{name}'")
+        return True
 
 
 
     def scan_name(self, scanning_state: ScanningState) -> ScanningState:
+        
+        nobility_particle: str = get_longest_of_values_contained(
+            scanning_state.remaining_name, self.nobility_particles.keys()
+        ) or ""
 
-        remaining_name = scanning_state.remaining_name
-
-        longest_found_nobility_particle: str | None = None
-
-        for nobility_particle in self.nobility_particles:
-            
-            if remaining_name.startswith(nobility_particle):
-                if longest_found_nobility_particle is None or len(nobility_particle) > len(longest_found_nobility_particle):
-                    longest_found_nobility_particle = nobility_particle
-                
-
-        if longest_found_nobility_particle is not None:
-
-            if remaining_name.removeprefix(longest_found_nobility_particle).strip() == '':
-                raise ValueError(f"Name '{remaining_name}' is empty after removing nobility particle '{longest_found_nobility_particle}'")
-            
-            name_after_nobility_particle = remaining_name.removeprefix(longest_found_nobility_particle).strip().split(' ')[0]
-
-            if name_after_nobility_particle[0].islower():
-                raise ValueError(f"Unknown name construction '{remaining_name}'")
-            
-            scanning_state.remaining_name = ' '.join(name_after_nobility_particle.split(' ')[1:])
-
-            token = Token(TokenType.LAST_NAME, longest_found_nobility_particle + " " + name_after_nobility_particle)
-            scanning_state.token_list.append(token)
-
-            if scanning_state.meta_data.language == None:
-                scanning_state.meta_data.language = self.nobility_particles[longest_found_nobility_particle]
-
+        if not self.is_valid_name_after_prefix(scanning_state.remaining_name, nobility_particle):
             return scanning_state
         
-        else:
+        name_part, rest = pop_first_word(scanning_state.remaining_name.removeprefix(nobility_particle).strip())
+        last_name = f"{nobility_particle} {name_part}".strip() if nobility_particle else name_part
 
-            if remaining_name.split(' ')[0].islower():
-                raise ValueError(f"Unknown name construction '{remaining_name}'")
-            
-            if scanning_state.has_first_name():
-                
-                last_name = remaining_name.split(' ')[0]
+        token_type = TokenType.LAST_NAME if scanning_state.has_first_name() or len(scanning_state.remaining_name.split(' ')) == 1 else TokenType.FIRST_NAME
+        
+        language: Language | None = self.nobility_particles.get(nobility_particle)
 
-                scanning_state.remaining_name = ' '.join(scanning_state.remaining_name.split(' ')[1:])
-                token = Token(TokenType.LAST_NAME, last_name)
-                scanning_state.token_list.append(token)
-                return scanning_state
-            
-            else:
-
-                if len(remaining_name.split(' ')) == 1:
-
-                    last_name = remaining_name.split(' ')[0]
-
-                    scanning_state.remaining_name = ' '.join(scanning_state.remaining_name.split(' ')[1:])
-                    token = Token(TokenType.LAST_NAME, last_name)
-                    scanning_state.token_list.append(token)
-                    return scanning_state
-                
-                else:
-
-                    first_name = remaining_name.split(' ')[0]
-
-                    scanning_state.remaining_name = ' '.join(remaining_name.split(' ')[1:])
-                    token = Token(TokenType.FIRST_NAME, first_name)
-                    scanning_state.token_list.append(token)
-                    return scanning_state
-                    
-
-
-            
- 
+        scanning_state.update(
+            Token(token_type, last_name),
+            rest,
+            language
+        )

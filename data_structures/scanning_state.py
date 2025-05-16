@@ -1,5 +1,5 @@
 from data_structures.token import Token, TokenType
-from data_structures.meta_data import MetaData
+from data_structures.meta_data import MetaData, Language, Gender
 from data_structures.contact import Contact
 from dataclasses import dataclass
 
@@ -31,3 +31,16 @@ class ScanningState:
         """
         contact = Contact(self.token_list, self.meta_data)
         return contact
+    
+    def update(self, token: Token, remaining_name: str, language: Language = None, gender: Gender = None) -> None:
+
+        if token.type == TokenType.SALUTATION and self.has_salutation():
+            raise ValueError(f"Multiple salutations found")
+
+        self.token_list.append(token)
+        self.remaining_name = remaining_name
+        if gender is not None:
+            self.meta_data.gender = gender
+
+        if language is not None and (self.meta_data.language is None or token.type == TokenType.SALUTATION):
+            self.meta_data.language = language

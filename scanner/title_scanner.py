@@ -3,6 +3,7 @@ import json
 from data_structures.token import Token, TokenType
 from data_structures.meta_data import Language, convert_string_to_language
 from data_structures.scanning_state import ScanningState
+from core import get_longest_of_values_contained
 
 class TitleScanner:
 
@@ -19,46 +20,23 @@ class TitleScanner:
     
     
     def scan_title(self, scanning_state: ScanningState) -> ScanningState:
+
+        longest_found_title: str | None = get_longest_of_values_contained(
+            scanning_state.remaining_name, self.titles.keys())
         
-        remaining_name = scanning_state.remaining_name
+        if longest_found_title is None:
+            raise ValueError(f"Title not found in dictionary.")
 
-        longest_found_title: str | None = None
-
-        for title in self.titles:
-            
-            if remaining_name.startswith(title):
-                if longest_found_title is None or len(title) > len(longest_found_title):
-                    longest_found_title = title
-                
-
-        if longest_found_title is not None:
-            
-            token = Token(TokenType.TITLE, longest_found_title)
-
-            scanning_state.token_list.append(token)
-            scanning_state.remaining_name = remaining_name.removeprefix(longest_found_title).strip()
-
-            if scanning_state.meta_data.language == None:
-                scanning_state.meta_data.language = self.titles[longest_found_title]
-            
-            return scanning_state
-        
-        raise ValueError(f"No title found in {remaining_name}.")
+        scanning_state.update(
+            Token(TokenType.TITLE, longest_found_title), 
+            scanning_state.remaining_name.removeprefix(longest_found_title).strip(), 
+            self.titles[longest_found_title]
+            )
     
 
 
     def next_word_title(self, scanning_state: ScanningState) -> bool:
-        
-        remaining_name = scanning_state.remaining_name
 
-        longest_found_title: str | None = None
-
-        for title in self.titles:
-            
-            if remaining_name.startswith(title):
-                if longest_found_title is None or len(title) > len(longest_found_title):
-                    return True
-                
-        return False
+        return get_longest_of_values_contained(scanning_state.remaining_name, self.titles.keys()) is not None
         
         
