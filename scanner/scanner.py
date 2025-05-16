@@ -6,18 +6,13 @@ from scanner.name_scanner import NameScanner
 class Scanner:
     
     def scan_string(self, input_string: str) -> str:
-        """
-        Scans the input string and returns a list of tokens.
-        """
-        # Remove leading and trailing whitespace
+
         input_string = input_string.strip()
         
-        # Check if the input string is empty
         if not input_string:
             raise ValueError("Input string is empty")
         
         empty_meta_data = MetaData()
-        
         scanner_state = ScanningState(token_list=[], meta_data=empty_meta_data, remaining_name=input_string)
 
         salutation_scanner = SalutationScanner()
@@ -32,4 +27,5 @@ class Scanner:
                 title_scanner.scan_title(scanner_state)
             else:
                 name_scanner.scan_name(scanner_state)
+
         return scanner_state
