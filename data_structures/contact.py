@@ -1,13 +1,11 @@
 from data_structures.token import Token, TokenType
 from data_structures.meta_data import MetaData
-from data_structures.contact import Contact
 from dataclasses import dataclass
 
 @dataclass
-class ScanningState:
+class Contact:
     token_list: list[Token]
     meta_data: MetaData
-    remaining_name: str
 
     def has_first_name(self) -> bool:
         
@@ -24,10 +22,3 @@ class ScanningState:
                 return True
             
         return False
-    
-    def create_contact(self) -> str:
-        """
-        Create a contact object this.
-        """
-        contact = Contact(self.token_list, self.meta_data)
-        return contact

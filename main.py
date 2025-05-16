@@ -1,4 +1,4 @@
-# import ContactSplitter.ai_integration as ai_integration
+import ai_integration as ai_integration
 
 # input = input("Enter a name: ")
 # print(ai_integration.get_gender_for_name(input))
