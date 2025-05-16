@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from enum import Enum
 
+
+
 class Gender(Enum):
     FEMALE = "female"
     MALE = "male"
     NON_BINARY = "non-binary"
+
+
 
 class Language(Enum):
     EN = "Englisch"
@@ -15,16 +19,10 @@ class Language(Enum):
     PT = "Portugiesisch"
     PL = "Polnisch"
     CS = "Tschechisch"
-    JA = "Japanisch"
-    ZH = "Chinesisch"
-    AR = "Arabisch"
-    HI = "Hindi"
-    VI = "Vietnamesisch"
-    TH = "Thailändisch"
     RO = "Rumänisch"
-    RU = "Russisch"
     SR = "Serbisch"
-    BN = "Bengalisch"
+
+
 
 @dataclass
 class MetaData:
@@ -32,10 +30,24 @@ class MetaData:
     language: str | None
     estimated_age: int | None
 
+
+
 def convert_string_to_language(language: str) -> Language:
     try:
         return Language[language.upper()]
     except KeyError:
         raise ValueError(f"Invalid language: {language}")
+
+
+def convert_string_to_gender(gender: str) -> Gender:
+    match gender.lower():
+        case "w":
+            return Gender.FEMALE
+        case "m":
+            return Gender.MALE
+        case "nb":
+            return Gender.NON_BINARY
+        case _:
+            raise ValueError(f"Invalid gender: {gender}")
 
 

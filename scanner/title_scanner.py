@@ -1,7 +1,7 @@
 
 import json
 from data_structures.token import Token, TokenType
-from data_structures.meta_data import MetaData, Language, convert_string_to_language
+from data_structures.meta_data import Language, convert_string_to_language
 from data_structures.scanning_state import ScanningState
 
 class TitleScanner:

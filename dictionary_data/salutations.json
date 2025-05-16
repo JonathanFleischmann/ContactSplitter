@@ -7,7 +7,7 @@
   "miss": { "lang": "en", "gender": "w" },
   "Ms.": { "lang": "en", "gender": "w" },
   "ms.": { "lang": "en", "gender": "w" },
-  "Mx.": { "lang": "en", "gender": "d" },
+  "Mx.": { "lang": "en", "gender": "nb" },
 
   "Herr": { "lang": "de", "gender": "m" },
   "herr": { "lang": "de", "gender": "m" },
@@ -56,42 +56,9 @@
   "Pán": { "lang": "cs", "gender": "m" },
   "Paní": { "lang": "cs", "gender": "w" },
 
-  "さん": { "lang": "ja", "gender": "d" },
-  "様": { "lang": "ja", "gender": "d" },
-  "ちゃん": { "lang": "ja", "gender": "w" },
-  "くん": { "lang": "ja", "gender": "m" },
-
-  "女士": { "lang": "zh", "gender": "w" },
-  "先生": { "lang": "zh", "gender": "m" },
-  "小姐": { "lang": "zh", "gender": "w" },
-
-  "السيد": { "lang": "ar", "gender": "m" },
-  "السيدة": { "lang": "ar", "gender": "w" },
-  "الآنسة": { "lang": "ar", "gender": "w" },
-
-  "श्री": { "lang": "hi", "gender": "m" },
-  "श्रीमती": { "lang": "hi", "gender": "w" },
-  "कुमार": { "lang": "hi", "gender": "m" },
-
-  "Ông": { "lang": "vi", "gender": "m" },
-  "Bà": { "lang": "vi", "gender": "w" },
-  "Cô": { "lang": "vi", "gender": "w" },
-  "Anh": { "lang": "vi", "gender": "m" },
-  "Chị": { "lang": "vi", "gender": "w" },
-
-  "นาย": { "lang": "th", "gender": "m" },
-  "นาง": { "lang": "th", "gender": "w" },
-  "นางสาว": { "lang": "th", "gender": "w" },
-
   "Domnul": { "lang": "ro", "gender": "m" },
   "Doamna": { "lang": "ro", "gender": "w" },
 
-  "Господин": { "lang": "ru", "gender": "m" },
-  "Госпожа": { "lang": "ru", "gender": "w" },
-
   "Gospodin": { "lang": "sr", "gender": "m" },
-  "Gospođa": { "lang": "sr", "gender": "w" },
-
-  "জনাব": { "lang": "bn", "gender": "m" },
-  "জনাবা": { "lang": "bn", "gender": "w" }
+  "Gospođa": { "lang": "sr", "gender": "w" }
 }
