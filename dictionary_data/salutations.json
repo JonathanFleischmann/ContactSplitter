@@ -1,0 +1,97 @@
+{
+  "Mr.": { "lang": "en", "gender": "m" },
+  "mr.": { "lang": "en", "gender": "m" },
+  "Mrs.": { "lang": "en", "gender": "w" },
+  "mrs.": { "lang": "en", "gender": "w" },
+  "Miss": { "lang": "en", "gender": "w" },
+  "miss": { "lang": "en", "gender": "w" },
+  "Ms.": { "lang": "en", "gender": "w" },
+  "ms.": { "lang": "en", "gender": "w" },
+  "Mx.": { "lang": "en", "gender": "d" },
+
+  "Herr": { "lang": "de", "gender": "m" },
+  "herr": { "lang": "de", "gender": "m" },
+  "Frau": { "lang": "de", "gender": "w" },
+  "frau": { "lang": "de", "gender": "w" },
+  "Fräulein": { "lang": "de", "gender": "w" },
+
+  "Monsieur": { "lang": "fr", "gender": "m" },
+  "monsieur": { "lang": "fr", "gender": "m" },
+  "M.": { "lang": "fr", "gender": "m" },
+  "m.": { "lang": "fr", "gender": "m" },
+  "Madame": { "lang": "fr", "gender": "w" },
+  "madame": { "lang": "fr", "gender": "w" },
+  "Mme": { "lang": "fr", "gender": "w" },
+  "mme": { "lang": "fr", "gender": "w" },
+  "Mademoiselle": { "lang": "fr", "gender": "w" },
+  "Mlle": { "lang": "fr", "gender": "w" },
+
+  "Señor": { "lang": "es", "gender": "m" },
+  "Sr.": { "lang": "es", "gender": "m" },
+  "Señora": { "lang": "es", "gender": "w" },
+  "Sra.": { "lang": "es", "gender": "w" },
+  "Señorita": { "lang": "es", "gender": "w" },
+  "Srta.": { "lang": "es", "gender": "w" },
+  "Don": { "lang": "es", "gender": "m" },
+  "Doña": { "lang": "es", "gender": "w" },
+
+  "Signore": { "lang": "it", "gender": "m" },
+  "Sig.": { "lang": "it", "gender": "m" },
+  "Signora": { "lang": "it", "gender": "w" },
+  "Sig.ra": { "lang": "it", "gender": "w" },
+  "Signorina": { "lang": "it", "gender": "w" },
+  "Sig.na": { "lang": "it", "gender": "w" },
+
+  "Senhor": { "lang": "pt", "gender": "m" },
+  "Sr.": { "lang": "pt", "gender": "m" },
+  "Senhora": { "lang": "pt", "gender": "w" },
+  "Sra.": { "lang": "pt", "gender": "w" },
+  "Senhorita": { "lang": "pt", "gender": "w" },
+  "Srta.": { "lang": "pt", "gender": "w" },
+
+  "Pan": { "lang": "pl", "gender": "m" },
+  "Pani": { "lang": "pl", "gender": "w" },
+  "Panienka": { "lang": "pl", "gender": "w" },
+
+  "Pán": { "lang": "cs", "gender": "m" },
+  "Paní": { "lang": "cs", "gender": "w" },
+
+  "さん": { "lang": "ja", "gender": "d" },
+  "様": { "lang": "ja", "gender": "d" },
+  "ちゃん": { "lang": "ja", "gender": "w" },
+  "くん": { "lang": "ja", "gender": "m" },
+
+  "女士": { "lang": "zh", "gender": "w" },
+  "先生": { "lang": "zh", "gender": "m" },
+  "小姐": { "lang": "zh", "gender": "w" },
+
+  "السيد": { "lang": "ar", "gender": "m" },
+  "السيدة": { "lang": "ar", "gender": "w" },
+  "الآنسة": { "lang": "ar", "gender": "w" },
+
+  "श्री": { "lang": "hi", "gender": "m" },
+  "श्रीमती": { "lang": "hi", "gender": "w" },
+  "कुमार": { "lang": "hi", "gender": "m" },
+
+  "Ông": { "lang": "vi", "gender": "m" },
+  "Bà": { "lang": "vi", "gender": "w" },
+  "Cô": { "lang": "vi", "gender": "w" },
+  "Anh": { "lang": "vi", "gender": "m" },
+  "Chị": { "lang": "vi", "gender": "w" },
+
+  "นาย": { "lang": "th", "gender": "m" },
+  "นาง": { "lang": "th", "gender": "w" },
+  "นางสาว": { "lang": "th", "gender": "w" },
+
+  "Domnul": { "lang": "ro", "gender": "m" },
+  "Doamna": { "lang": "ro", "gender": "w" },
+
+  "Господин": { "lang": "ru", "gender": "m" },
+  "Госпожа": { "lang": "ru", "gender": "w" },
+
+  "Gospodin": { "lang": "sr", "gender": "m" },
+  "Gospođa": { "lang": "sr", "gender": "w" },
+
+  "জনাব": { "lang": "bn", "gender": "m" },
+  "জনাবা": { "lang": "bn", "gender": "w" }
+}
