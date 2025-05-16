@@ -23,6 +23,8 @@
   "madame": { "lang": "fr", "gender": "w" },
   "Mme": { "lang": "fr", "gender": "w" },
   "mme": { "lang": "fr", "gender": "w" },
+  "Mme.": { "lang": "fr", "gender": "w" },
+  "mme.": { "lang": "fr", "gender": "w" },
   "Mademoiselle": { "lang": "fr", "gender": "w" },
   "Mlle": { "lang": "fr", "gender": "w" },
 

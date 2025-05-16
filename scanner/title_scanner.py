@@ -19,31 +19,46 @@ class TitleScanner:
     
     
     def scan_title(self, scanning_state: ScanningState) -> ScanningState:
-        first_word = scanning_state.remaining_name.split(' ')[0]
+        
+        remaining_name = scanning_state.remaining_name
 
-        if first_word in self.titles:
+        longest_found_title: str | None = None
+
+        for title in self.titles:
             
-            token = Token(TokenType.TITLE, first_word)
+            if remaining_name.startswith(title):
+                if longest_found_title is None or len(title) > len(longest_found_title):
+                    longest_found_title = title
+                
+
+        if longest_found_title is not None:
+            
+            token = Token(TokenType.TITLE, longest_found_title)
 
             scanning_state.token_list.append(token)
-            scanning_state.remaining_name = ' '.join(scanning_state.remaining_name.split(' ')[1:])
+            scanning_state.remaining_name = remaining_name.removeprefix(longest_found_title).strip()
 
             if scanning_state.meta_data.language == None:
-                scanning_state.meta_data.language = self.titles[first_word]
+                scanning_state.meta_data.language = self.titles[longest_found_title]
             
             return scanning_state
         
-        raise ValueError(f"Title '{first_word}' not found in title-dictionary.")
+        raise ValueError(f"No title found in {remaining_name}.")
     
 
 
     def next_word_title(self, scanning_state: ScanningState) -> bool:
         
-        first_word = scanning_state.remaining_name.split(' ')[0]
+        remaining_name = scanning_state.remaining_name
 
-        if first_word in self.titles:
-            return True
-        
+        longest_found_title: str | None = None
+
+        for title in self.titles:
+            
+            if remaining_name.startswith(title):
+                if longest_found_title is None or len(title) > len(longest_found_title):
+                    return True
+                
         return False
         
         

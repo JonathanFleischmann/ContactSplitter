@@ -30,6 +30,11 @@ class MetaData:
     language: str | None
     estimated_age: int | None
 
+    def __init__(self):
+        self.gender = None
+        self.language = None
+        self.estimated_age = None
+
 
 
 def convert_string_to_language(language: str) -> Language:
@@ -37,6 +42,7 @@ def convert_string_to_language(language: str) -> Language:
         return Language[language.upper()]
     except KeyError:
         raise ValueError(f"Invalid language: {language}")
+
 
 
 def convert_string_to_gender(gender: str) -> Gender:

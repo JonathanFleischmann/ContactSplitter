@@ -45,7 +45,7 @@ class SalutationScanner:
     
 
 
-    def next_word_title(self, scanning_state: ScanningState) -> bool:
+    def next_word_salutation(self, scanning_state: ScanningState) -> bool:
         
         first_word = scanning_state.remaining_name.split(' ')[0]
 
