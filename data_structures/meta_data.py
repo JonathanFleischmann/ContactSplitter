@@ -28,8 +28,14 @@ class Language(Enum):
 
 @dataclass
 class MetaData:
-    gender: Gender
-    language: str
-    estimated_age: int
+    gender: Gender | None
+    language: str | None
+    estimated_age: int | None
+
+def convert_string_to_language(language: str) -> Language:
+    try:
+        return Language[language.upper()]
+    except KeyError:
+        raise ValueError(f"Invalid language: {language}")
 
 
