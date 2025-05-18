@@ -1,5 +1,5 @@
 from data_structures.token import Token, TokenType
-from data_structures.meta_data import MetaData, Language, Gender
+from data_structures.meta_data import MetaData, Language
 from data_structures.contact import Contact
 from dataclasses import dataclass
 

@@ -5,10 +5,22 @@
 # print(ai_integration.get_age_for_name(input))
 
 from scanner.scanner import Scanner
+from scanner.salutation_scanner import SalutationScanner
+from scanner.title_scanner import TitleScanner
+from scanner.name_scanner import NameScanner
+from persistency.salutations_adder import SalutationAdder
+from persistency.gender_adder import GenderAdder
 
 def main():
+    salutation_scanner = SalutationScanner()
+    title_scanner = TitleScanner()
+    name_scanner = NameScanner()
+    scanner = Scanner(salutation_scanner, title_scanner, name_scanner)
+
+    salutation_adder = SalutationAdder(salutation_scanner)
+    gender_adder = GenderAdder()
+
     input_string = input("Enter a name: ")
-    scanner = Scanner()
     scanning_state = scanner.scan_string(input_string)
     
     print("Tokens:")

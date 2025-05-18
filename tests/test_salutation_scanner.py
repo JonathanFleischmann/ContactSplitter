@@ -2,7 +2,7 @@ import unittest
 from scanner.salutation_scanner import SalutationScanner
 from data_structures.scanning_state import ScanningState
 from data_structures.token import TokenType
-from data_structures.meta_data import Language, Gender, MetaData
+from data_structures.meta_data import Language, MetaData
 
 def get_scanning_state(remaining_name):
     return ScanningState(
@@ -24,7 +24,7 @@ class TestSalutationScanner(unittest.TestCase):
         self.assertEqual(updated_state.token_list[0].value, "Mr")
         self.assertEqual(updated_state.remaining_name, "John Doe")
         self.assertEqual(updated_state.meta_data.language, Language.EN)
-        self.assertEqual(updated_state.meta_data.gender, Gender.MALE)
+        self.assertEqual(updated_state.meta_data.gender, "Männlich")
 
     def test_scan_salutation_invalid(self):
         scanning_state = get_scanning_state("Dxr John Doe")

@@ -1,7 +1,7 @@
 
 import json
 from data_structures.token import Token, TokenType
-from data_structures.meta_data import Language, Gender, convert_string_to_language, convert_string_to_gender
+from data_structures.meta_data import Language, genders , convert_string_to_language
 from data_structures.scanning_state import ScanningState
 
 class SalutationScanner:
@@ -10,14 +10,14 @@ class SalutationScanner:
 
     def __init__(self):
 
-        self.salutations : dict[str, dict[Language, Gender]] = {}
+        self.salutations : dict[str, dict[Language, str]] = {}
 
         with open(self.file_path, 'r', encoding='utf-8') as file:
             loaded_salutations = json.load(file)
             self.salutations = {
                 key: {
                     "language": convert_string_to_language(value["lang"]),
-                    "gender": convert_string_to_gender(value["gender"])
+                    "gender": value["gender"]
                 }
                 for key, value in loaded_salutations.items()
             }

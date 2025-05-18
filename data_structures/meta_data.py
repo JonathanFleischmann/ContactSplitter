@@ -3,11 +3,13 @@ from enum import Enum
 
 
 
-class Gender(Enum):
-    FEMALE = "female"
-    MALE = "male"
-    NON_BINARY = "non-binary"
-
+genders = {
+    "Männlich",
+    "Weiblich",
+    "Nichtbinär",
+    "Divers",
+    "Agender"
+}
 
 
 class Language(Enum):
@@ -26,7 +28,7 @@ class Language(Enum):
 
 @dataclass
 class MetaData:
-    gender: Gender | None
+    gender: str | None
     language: str | None
     estimated_age: int | None
 
@@ -43,17 +45,5 @@ def convert_string_to_language(language: str) -> Language:
     except KeyError:
         raise ValueError(f"Invalid language: {language}")
 
-
-
-def convert_string_to_gender(gender: str) -> Gender:
-    match gender.lower():
-        case "w":
-            return Gender.FEMALE
-        case "m":
-            return Gender.MALE
-        case "nb":
-            return Gender.NON_BINARY
-        case _:
-            raise ValueError(f"Invalid gender: {gender}")
 
 
