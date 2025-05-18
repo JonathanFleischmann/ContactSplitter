@@ -4,6 +4,7 @@ from scanner.scanner import Scanner
 from data_structures.scanning_state import ScanningState, MetaData, Language
 from user_interface.name_component_widget import NameComponentWidget
 from user_interface.edit_name_widget import EditNameWidget
+from user_interface.edit_options_widget import EditOptionsWidget
 from user_interface.mode_change_widget import ModeChangeWidget, Mode
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
@@ -15,10 +16,10 @@ from scanner.name_scanner import NameScanner
 class NamensUI:
     def __init__(self, root):
 
-        salutation_scanner = SalutationScanner()
-        title_scanner = TitleScanner()
+        self.salutation_scanner = SalutationScanner()
+        self.title_scanner = TitleScanner()
         name_scanner = NameScanner()
-        self.scanner = Scanner(salutation_scanner, title_scanner, name_scanner)
+        self.scanner = Scanner(self.salutation_scanner, self.title_scanner, name_scanner)
 
         meta_data = MetaData()
         meta_data.language = Language.DE
@@ -71,7 +72,7 @@ class NamensUI:
         elif mode == Mode.INPUT_HISTORY:
             pass
         elif mode == Mode.EDIT_OPTIONS:
-            pass
+            self.switch_to_edit_options()
 
     def clear_dynamic_frame(self):
         for widget in self.dynamic_frame.winfo_children():
@@ -90,6 +91,11 @@ class NamensUI:
         self.clear_dynamic_frame()
 
         EditNameWidget(self.scanning_state, self.dynamic_frame, self.update_name)
+
+    def switch_to_edit_options(self):
+        self.clear_dynamic_frame()
+
+        EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner)
             
     def update_name(self, scanningState: ScanningState):
         self.scanning_state = scanningState
