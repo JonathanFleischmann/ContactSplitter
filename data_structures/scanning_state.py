@@ -25,7 +25,7 @@ class ScanningState:
             
         return False
     
-    def create_contact(self) -> str:
+    def create_contact(self) -> Contact:
         """
         Create a contact object this.
         """

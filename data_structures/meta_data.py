@@ -40,6 +40,8 @@ class MetaData:
 
 
 def convert_string_to_language(language: str) -> Language:
+    if isinstance(language, Language):
+        return language
     try:
         return Language[language.upper()]
     except KeyError:
