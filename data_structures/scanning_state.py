@@ -32,7 +32,7 @@ class ScanningState:
         contact = Contact(self.token_list, self.meta_data)
         return contact
     
-    def update(self, token: Token, remaining_name: str, language: Language = None, gender: Gender = None) -> None:
+    def update(self, token: Token, remaining_name: str, language: Language = None, gender: str = None) -> None:
 
         if token.type == TokenType.SALUTATION and self.has_salutation():
             raise ValueError(f"Multiple salutations found")
