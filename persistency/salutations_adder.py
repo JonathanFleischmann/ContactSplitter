@@ -1,8 +1,12 @@
 from data_structures.meta_data import Language, genders
+from scanner.salutation_scanner import SalutationScanner
 
 
 class SalutationAdder:
-    def __init__(self, salutation_scanner):
+
+    salutation_scanner: SalutationScanner
+
+    def __init__(self, salutation_scanner: SalutationScanner):
         self.salutation_scanner = salutation_scanner
 
     def add_salutation(self, salutation: str, language: Language, gender: str) -> None:

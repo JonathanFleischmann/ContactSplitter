@@ -10,6 +10,7 @@ from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
 from persistency.salutations_adder import SalutationAdder
 from persistency.gender_adder import GenderAdder
+from persistency.title_adder import TitleAdder
 
 def main():
     salutation_scanner = SalutationScanner()
@@ -18,6 +19,7 @@ def main():
     scanner = Scanner(salutation_scanner, title_scanner, name_scanner)
 
     salutation_adder = SalutationAdder(salutation_scanner)
+    title_adder = TitleAdder(title_scanner)
     gender_adder = GenderAdder()
 
     input_string = input("Enter a name: ")
