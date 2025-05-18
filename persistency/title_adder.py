@@ -12,6 +12,5 @@ class TitleAdder:
         if title in self.title_scanner.titles:
             raise ValueError(f"Salutation '{title}' already exists in dictionary.")
         
-        self.salutation_scanner.salutations[title] = {
-            "language": language,
-        }
+        self.title_scanner.titles[title] = language
+        
