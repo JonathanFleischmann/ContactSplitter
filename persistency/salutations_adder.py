@@ -14,6 +14,8 @@ class SalutationAdder:
             raise ValueError(f"Salutation '{salutation}' already exists in dictionary.")
         if gender not in genders:
             raise ValueError(f"Unknown gender:'{gender}'")
+        if salutation == "":
+            raise ValueError(f"No empty string allowed.")
         
         self.salutation_scanner.salutations[salutation] = {
             "language": language,

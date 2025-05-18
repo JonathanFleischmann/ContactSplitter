@@ -1,0 +1,21 @@
+{
+  "Sehr geehrter": { "lang": "de", "gender": "Männlich" },
+  "Sehr geehrte": { "lang": "de", "gender": "Weiblich" },
+  "Hallo": { "lang": "de", "gender": "Nichtbinär" },
+  "Sehr geehrte Damen und Herren und alle dazwischen und außerhalb": { "lang": "de", "gender": "" },
+
+  "Dear": { "lang": "en", "gender": "" },
+  
+  "Egregi Signori": { "lang": "it", "gender": "" },
+  "Gentile Signora": { "lang": "it", "gender": "Weiblich" },
+  "Egregio Signor": { "lang": "it", "gender": "Männlich" },
+
+  "Messieursdames": { "lang": "fr", "gender": "" },
+  "Madame": { "lang": "fr", "gender": "Weiblich" },
+  "Monsieur": { "lang": "fr", "gender": "Männlich"},
+
+  "Estimados Señores y Señoras": {"lang": "es", "gender": ""},
+  "Estimado Señor": {"lang": "es", "gender": "Männlich"},
+  "Estimada Señora": {"lang": "es", "gender": "Weiblich"}
+
+}
