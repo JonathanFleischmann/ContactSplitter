@@ -16,7 +16,7 @@ class Scanner:
         self.name_scanner = name_scanner
 
     
-    def scan_string(self, input_string: str) -> str:
+    def scan_string(self, input_string: str) -> ScanningState:
 
         input_string = input_string.strip()
         
