@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from enum import Enum
 
 class TokenType(Enum):
-    SALUTATION = "salutation"
-    TITLE = "title"
-    FIRST_NAME = "first_name"
-    LAST_NAME = "last_name"
+    SALUTATION = "Anrede"
+    TITLE = "Titel"
+    FIRST_NAME = "Vorname"
+    LAST_NAME = "Nachname"
 
 @dataclass
 class Token:
