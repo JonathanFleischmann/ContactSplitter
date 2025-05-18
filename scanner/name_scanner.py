@@ -22,9 +22,9 @@ class NameScanner:
     def is_valid_name_after_prefix(self, remaining_name: str, prefix: str) -> bool:
         name = remaining_name.removeprefix(prefix).strip()
         if name == "":
-            raise ValueError(f"Kein Name nach Präfix '{prefix}' in '{remaining_name}' gefunden.")
+            raise ValueError(f"Invalid name: No name after prefix '{prefix}' found in '{remaining_name}'.")
         if not name.split(' ')[0][0].isupper():
-            raise ValueError(f"Name nach Präfix '{prefix}' beginnt nicht mit Großbuchstaben: '{name}'")
+            raise ValueError(f"Invalid name: Name after prefix '{prefix}' isn't a capitalized character: '{name}.'")
         return True
 
 
@@ -34,7 +34,7 @@ class NameScanner:
         nobility_particle: str = get_longest_of_values_contained(
             scanning_state.remaining_name, self.nobility_particles.keys()
         ) or ""
-
+        
         if not self.is_valid_name_after_prefix(scanning_state.remaining_name, nobility_particle):
             return scanning_state
         

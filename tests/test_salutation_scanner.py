@@ -18,13 +18,13 @@ class TestSalutationScanner(unittest.TestCase):
 
     def test_scan_salutation_valid(self):
         scanning_state = get_scanning_state("Mr John Doe")
-        updated_state = self.scanner.scan_salutation(scanning_state)
-        self.assertEqual(len(updated_state.token_list), 1)
-        self.assertEqual(updated_state.token_list[0].type, TokenType.SALUTATION)
-        self.assertEqual(updated_state.token_list[0].value, "Mr")
-        self.assertEqual(updated_state.remaining_name, "John Doe")
-        self.assertEqual(updated_state.meta_data.language, Language.EN)
-        self.assertEqual(updated_state.meta_data.gender, "Männlich")
+        self.scanner.scan_salutation(scanning_state)
+        self.assertEqual(len(scanning_state.token_list), 1)
+        self.assertEqual(scanning_state.token_list[0].type, TokenType.SALUTATION)
+        self.assertEqual(scanning_state.token_list[0].value, "Mr")
+        self.assertEqual(scanning_state.remaining_name, "John Doe")
+        self.assertEqual(scanning_state.meta_data.language, Language.EN)
+        self.assertEqual(scanning_state.meta_data.gender, "Männlich")
 
     def test_scan_salutation_invalid(self):
         scanning_state = get_scanning_state("Dxr John Doe")
@@ -35,6 +35,7 @@ class TestSalutationScanner(unittest.TestCase):
     def test_scan_salutation_multiple_salutations(self):
         scanning_state = get_scanning_state("Mr Mrs John Doe")
         with self.assertRaises(ValueError) as context:
+            self.scanner.scan_salutation(scanning_state)
             self.scanner.scan_salutation(scanning_state)
         self.assertIn("Multiple salutations found", str(context.exception))
 
