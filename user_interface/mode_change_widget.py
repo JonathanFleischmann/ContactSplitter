@@ -9,7 +9,7 @@ class Mode(Enum):
 
 class ModeChangeWidget:
 
-    def __init__(self, container, on_mode_change_callback):
+    def __init__(self, container: tk.Frame, on_mode_change_callback):
         self.container = container
         self.on_mode_change_callback = on_mode_change_callback
 
