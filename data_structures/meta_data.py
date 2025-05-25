@@ -29,7 +29,7 @@ class Language(Enum):
 @dataclass
 class MetaData:
     gender: str | None
-    language: str | None
+    language: Language | None
     estimated_age: int | None
 
     def __init__(self):

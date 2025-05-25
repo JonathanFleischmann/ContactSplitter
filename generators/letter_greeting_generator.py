@@ -23,8 +23,10 @@ class LetterGreetingGenerator:
                 for key, value in loaded_greetings.items()
             }
 
-    def generate(self, contact: Contact) -> str:
-        greeting = self.get_greeting(contact)
+    def generate(self, contact: Contact, lang: Language = None) -> str:
+        if lang is None:
+            lang = contact.meta_data.language
+        greeting = self.get_greeting(contact, lang)
         for token in contact.token_list:
             if token.type == TokenType.SALUTATION:
                 greeting = greeting + " " + token.value
@@ -39,9 +41,8 @@ class LetterGreetingGenerator:
 
 
     
-    def get_greeting(self, contact: Contact) -> str:
+    def get_greeting(self, contact: Contact, lang: Language) -> str:
         #TODO: French stuff
-        lang = contact.meta_data.language
         gender = contact.meta_data.gender
 
 

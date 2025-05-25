@@ -35,4 +35,4 @@ class Scanner:
             else:
                 self.name_scanner.scan_name(scanner_state)
 
-        return scanner_state
+        return scanner_state.create_contact()

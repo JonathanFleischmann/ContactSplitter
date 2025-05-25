@@ -1,4 +1,4 @@
-from data_structures.scanning_state import ScanningState
+from data_structures.contact import Contact
 from data_structures.token import Token, TokenType
 from data_structures.meta_data import MetaData, Language, genders
 from user_interface.name_component_widget import NameComponentWidget
@@ -8,8 +8,8 @@ from tkinter import ttk
 
 class EditNameWidget:
 
-    def __init__(self, ScanningState: ScanningState, container, on_update_callback):
-        self.scanning_state = ScanningState
+    def __init__(self, contact: Contact, container, on_update_callback):
+        self.contact = contact
         self.container = container
         self.on_update_callback = on_update_callback
 
@@ -18,10 +18,10 @@ class EditNameWidget:
 
     def initialize(self, container: tk.Frame):
         self.recent_tokens = dict[int, Token]()
-        self.recent_tokens = {i: token for i, token in enumerate(self.scanning_state.token_list)}
+        self.recent_tokens = {i: token for i, token in enumerate(self.contact.token_list)}
         self.next_id = len(self.recent_tokens) + 1
 
-        self.recent_meta_data: MetaData = self.scanning_state.meta_data
+        self.recent_meta_data: MetaData = self.contact.meta_data
 
         self.edit_name_frame = tk.LabelFrame(container, text="Namen und Metadaten anpassen")
         self.edit_name_frame.pack()

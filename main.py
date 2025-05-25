@@ -27,25 +27,22 @@ def main():
     letter_greeting_generator = LetterGreetingGenerator()
 
     input_string = input("Enter a name: ")
-    scanning_state = scanner.scan_string(input_string)
-    contact = scanning_state.create_contact()
+    contact : Contact = scanner.scan_string(input_string)
 
-  # KI-Integration: Geschlecht und Alter ermitteln
-    extracted_name = scanning_state.remaining_name  
+    # KI-Integration: Geschlecht und Alter ermitteln
     if contact.meta_data.gender is None:
-        gender = ai_integration.get_gender_for_name(extracted_name)
-        contact.meta_data['gender'] = gender
+        gender = ai_integration.get_gender_for_name(contact.get_first_name())
+        contact.meta_data.gender = gender
         
-    age = ai_integration.get_age_for_name(extracted_name)
-    contact.meta_data['age'] = age
+    age = ai_integration.get_age_for_name(contact.get_name())
+    contact.meta_data.estimated_age = age
 
 
     print("Tokens:")
-    for token in scanning_state.token_list:
+    for token in contact.token_list:
         print(f"Type: {token.type}, Value: {token.value}")
     
-    print(f"Remaining Name: {scanning_state.remaining_name}")
-    print(f"Meta Data: {scanning_state.meta_data}")
+    print(f"Meta Data: {contact.meta_data}")
 
     print(letter_greeting_generator.generate(contact))
 

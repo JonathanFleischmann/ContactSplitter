@@ -1,7 +1,7 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import ScanningState, MetaData, Language, TokenType
-from user_interface.name_component_widget import NameComponentWidget
+from data_structures.scanning_state import MetaData, Language, TokenType, Contact
+from user_interface.letter_salutation_widget import LetterSalutationWidget
 from user_interface.edit_name_widget import EditNameWidget
 from user_interface.edit_options_widget import EditOptionsWidget
 from user_interface.mode_change_widget import ModeChangeWidget, Mode
@@ -23,10 +23,9 @@ class NamensUI:
         meta_data.gender = "Unbekannt"
         meta_data.estimated_age = 0
 
-        self.scanning_state = ScanningState(
+        self.contact = Contact(
             token_list=[],
-            meta_data=meta_data,
-            remaining_name="",
+            meta_data=meta_data
         )
 
         self.root = root
@@ -57,19 +56,14 @@ class NamensUI:
 
     def submit_name(self, name: str):
         # Name scannen und Meta-Daten aktualisieren
-        self.scanning_state = self.scanner.scan_string(name)
-
-        extracted_first_names = ""
-        for token in self.scanning_state.token_list:
-            if token.type == TokenType.FIRST_NAME:
-                extracted_first_names = extracted_first_names + " " + token.value
+        self.contact = self.scanner.scan_string(name)
                 
-        if self.scanning_state.meta_data.gender == None or self.scanning_state.meta_data.gender == "":
-            gender = ai_integration.get_gender_for_name(extracted_first_names)
-            self.scanning_state.meta_data.gender = gender
+        if self.contact.meta_data.gender == None or self.contact.meta_data.gender == "":
+            gender = ai_integration.get_gender_for_name(self.contact.get_first_name())
+            self.contact.meta_data.gender = gender
         
         age = ai_integration.get_age_for_name(name)
-        self.scanning_state.meta_data.estimated_age = age
+        self.contact.meta_data.estimated_age = age
 
         self.switch_mode(self.mode)
 
@@ -93,26 +87,22 @@ class NamensUI:
     def switch_to_briefanrede(self):
         self.clear_dynamic_frame()
 
-        self.output_label = tk.Label(self.dynamic_frame, text="Briefanrede-Ausgabe:")
-        self.output_label.pack(anchor="w")
-
-        self.output_field = tk.Entry(self.dynamic_frame, width=40)
-        self.output_field.pack(pady=5)
+        LetterSalutationWidget(self.contact, self.dynamic_frame)
 
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
 
-        EditNameWidget(self.scanning_state, self.dynamic_frame, self.update_name)
+        EditNameWidget(self.contact, self.dynamic_frame, self.update_name)
 
     def switch_to_edit_options(self):
         self.clear_dynamic_frame()
 
         EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner)
 
-    def update_name(self, scanningState: ScanningState):
-        self.scanning_state = scanningState
+    def update_name(self, contact: Contact):
+        self.contact = contact
         self.name_entry.delete(0, tk.END)
-        self.name_entry.insert(0, scanningState.get_name())
+        self.name_entry.insert(0, contact.get_name())
 
 
 if __name__ == "__main__":

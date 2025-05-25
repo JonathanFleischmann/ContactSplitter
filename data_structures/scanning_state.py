@@ -44,9 +44,3 @@ class ScanningState:
 
         if language is not None and (self.meta_data.language is None or token.type == TokenType.SALUTATION):
             self.meta_data.language = language
-
-    def get_name(self) -> str:
-        name = ""
-        for token in self.token_list:
-            name += token.value + " "
-        return name.strip()
