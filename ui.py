@@ -1,7 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import ScanningState, MetaData, Language
+from data_structures.scanning_state import ScanningState, MetaData, Language, TokenType
 from user_interface.name_component_widget import NameComponentWidget
 from user_interface.edit_name_widget import EditNameWidget
 from user_interface.edit_options_widget import EditOptionsWidget
@@ -9,13 +8,11 @@ from user_interface.mode_change_widget import ModeChangeWidget, Mode
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
-
-
+import ai_integration  as ai_integration
 
 
 class NamensUI:
     def __init__(self, root):
-
         self.salutation_scanner = SalutationScanner()
         self.title_scanner = TitleScanner()
         name_scanner = NameScanner()
@@ -24,6 +21,7 @@ class NamensUI:
         meta_data = MetaData()
         meta_data.language = Language.DE
         meta_data.gender = "Unbekannt"
+        meta_data.estimated_age = 0
 
         self.scanning_state = ScanningState(
             token_list=[],
@@ -58,7 +56,21 @@ class NamensUI:
         self.switch_mode(self.mode)
 
     def submit_name(self, name: str):
+        # Name scannen und Meta-Daten aktualisieren
         self.scanning_state = self.scanner.scan_string(name)
+
+        extracted_first_names = ""
+        for token in self.scanning_state.token_list:
+            if token.type == TokenType.FIRST_NAME:
+                extracted_first_names = extracted_first_names + " " + token.value
+                
+        if self.scanning_state.meta_data.gender == None or self.scanning_state.meta_data.gender == "":
+            gender = ai_integration.get_gender_for_name(extracted_first_names)
+            self.scanning_state.meta_data.gender = gender
+        
+        age = ai_integration.get_age_for_name(name)
+        self.scanning_state.meta_data.estimated_age = age
+
         self.switch_mode(self.mode)
 
     def switch_mode(self, mode: Mode):
@@ -96,7 +108,7 @@ class NamensUI:
         self.clear_dynamic_frame()
 
         EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner)
-            
+
     def update_name(self, scanningState: ScanningState):
         self.scanning_state = scanningState
         self.name_entry.delete(0, tk.END)

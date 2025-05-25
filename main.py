@@ -1,4 +1,4 @@
-# import ai_integration as ai_integration
+import ai_integration as ai_integration
 
 # input = input("Enter a name: ")
 # print(ai_integration.get_gender_for_name(input))
@@ -29,7 +29,17 @@ def main():
     input_string = input("Enter a name: ")
     scanning_state = scanner.scan_string(input_string)
     contact = scanning_state.create_contact()
-    
+
+  # KI-Integration: Geschlecht und Alter ermitteln
+    extracted_name = scanning_state.remaining_name  
+    if contact.meta_data.gender is None:
+        gender = ai_integration.get_gender_for_name(extracted_name)
+        contact.meta_data['gender'] = gender
+        
+    age = ai_integration.get_age_for_name(extracted_name)
+    contact.meta_data['age'] = age
+
+
     print("Tokens:")
     for token in scanning_state.token_list:
         print(f"Type: {token.type}, Value: {token.value}")

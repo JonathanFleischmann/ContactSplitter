@@ -6,4 +6,5 @@ class GenderAdder:
             raise ValueError(f"Gender '{gender}' is already known.")
         if gender == "":
             raise ValueError(f"No empty string allowed.")
+        
         genders.add(gender)

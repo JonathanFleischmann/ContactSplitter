@@ -26,8 +26,6 @@
 
   "Monsieur": { "lang": "fr", "gender": "Männlich" },
   "monsieur": { "lang": "fr", "gender": "Männlich" },
-  "Männlich.": { "lang": "fr", "gender": "Männlich" },
-  "Männlich.": { "lang": "fr", "gender": "Männlich" },
   "Madame": { "lang": "fr", "gender": "Weiblich" },
   "madame": { "lang": "fr", "gender": "Weiblich" },
   "Mme": { "lang": "fr", "gender": "Weiblich" },
@@ -54,11 +52,8 @@
   "Sig.na": { "lang": "it", "gender": "Weiblich" },
 
   "Senhor": { "lang": "pt", "gender": "Männlich" },
-  "Sr.": { "lang": "pt", "gender": "Männlich" },
   "Senhora": { "lang": "pt", "gender": "Weiblich" },
-  "Sra.": { "lang": "pt", "gender": "Weiblich" },
   "Senhorita": { "lang": "pt", "gender": "Weiblich" },
-  "Srta.": { "lang": "pt", "gender": "Weiblich" },
 
   "Pan": { "lang": "pl", "gender": "Männlich" },
   "Pani": { "lang": "pl", "gender": "Weiblich" },

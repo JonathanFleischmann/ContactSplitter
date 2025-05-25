@@ -52,7 +52,7 @@ class EditNameWidget:
         age_frame.columnconfigure(0, weight=1)
         age_frame.columnconfigure(1, weight=1)
 
-        age_label = tk.Label(age_frame, text="Alter:")
+        age_label = tk.Label(age_frame, text="Geschätztes Alter:")
         age_label.grid(row=0, column=0, sticky="ew", padx=(0, 5), pady=2)
         age_entry = tk.Entry(age_frame)
         age_entry.grid(row=0, column=1, sticky="ew", padx=(5, 0), pady=2)
