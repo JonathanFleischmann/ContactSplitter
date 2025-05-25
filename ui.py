@@ -21,6 +21,7 @@ class NamensUI:
         meta_data = MetaData()
         meta_data.language = Language.DE
         meta_data.gender = "Unbekannt"
+        meta_data.estimated_age = 0
 
         self.scanning_state = ScanningState(
             token_list=[],
@@ -59,12 +60,12 @@ class NamensUI:
         self.scanning_state = self.scanner.scan_string(name)
 
         extracted_name = self.scanning_state.remaining_name
-        if self.scanning_state.meta_data.gender == "Unbekannt":
+        if self.scanning_state.meta_data.gender == None or self.scanning_state.meta_data.gender == "":
             gender = ai_integration.get_gender_for_name(extracted_name)
             self.scanning_state.meta_data.gender = gender
         
         age = ai_integration.get_age_for_name(extracted_name)
-        self.scanning_state.meta_data.age = age
+        self.scanning_state.meta_data.estimated_age = age
 
         self.switch_mode(self.mode)
 
@@ -94,11 +95,10 @@ class NamensUI:
         self.output_field = tk.Entry(self.dynamic_frame, width=40)
         self.output_field.pack(pady=5)
 
-        # Geschlecht und Alter anzeigen
         gender_label = tk.Label(self.dynamic_frame, text=f"Geschlecht: {self.scanning_state.meta_data.gender}")
         gender_label.pack(anchor="w")
 
-        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.age}")
+        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.estimated_age}")
         age_label.pack(anchor="w")
 
     def switch_to_edit_name_and_data(self):
