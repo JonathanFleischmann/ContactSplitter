@@ -95,11 +95,15 @@ class NamensUI:
         self.output_field = tk.Entry(self.dynamic_frame, width=40)
         self.output_field.pack(pady=5)
 
+        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.estimated_age}")
+        age_label.pack(anchor="w")
+
+        language_label = tk.Label(self.dynamic_frame, text=f"Sprache: {self.scanning_state.meta_data.language.value}")
+        language_label.pack(anchor="w")
+
         gender_label = tk.Label(self.dynamic_frame, text=f"Geschlecht: {self.scanning_state.meta_data.gender}")
         gender_label.pack(anchor="w")
 
-        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.estimated_age}")
-        age_label.pack(anchor="w")
 
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
