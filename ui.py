@@ -1,6 +1,7 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import MetaData, Language, TokenType, Contact
+from data_structures.scanning_state import MetaData, Language, Contact
+from user_interface.name_scanner_widget import NameScannerWidget
 from user_interface.letter_salutation_widget import LetterSalutationWidget
 from user_interface.edit_name_widget import EditNameWidget
 from user_interface.edit_options_widget import EditOptionsWidget
@@ -10,7 +11,6 @@ from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
 from persistency.contact_saver import ContactSaver
-import ai_integration  as ai_integration
 
 
 class NamensUI:
@@ -40,36 +40,27 @@ class NamensUI:
         self.build_ui()
 
     def build_ui(self):
-        # Eingabefeld + Button
-        self.name_entry = tk.Entry(self.root, width=30)
-        self.name_entry.pack(pady=(10, 2))
+        
+        self.name_scanner_widget: NameScannerWidget = NameScannerWidget(self.root, self.scanner, self.display_contact)
 
-        self.capture_button = tk.Button(self.root, text="Namen erfassen")
-        self.capture_button.config(command=lambda: self.submit_name(self.name_entry.get()))
-        self.capture_button.pack(pady=(0, 10))
 
         self.dynamic_frame = tk.Frame(self.root)
 
         ModeChangeWidget(self.root, self.switch_mode)
 
-        # Dynamischer Bereich
         self.dynamic_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Initialer Modus
         self.switch_mode(self.mode)
 
-    def submit_name(self, name: str):
-        # Name scannen und Meta-Daten aktualisieren
-        self.contact = self.scanner.scan_string(name)
-                
-        if self.contact.meta_data.gender == None or self.contact.meta_data.gender == "":
-            gender = ai_integration.get_gender_for_name(self.contact.get_first_name())
-            self.contact.meta_data.gender = gender
+
+    def display_contact(self, contact: Contact):
         
-        age = ai_integration.get_age_for_name(name)
-        self.contact.meta_data.estimated_age = age
+        self.contact = contact
 
         self.switch_mode(self.mode)
+                
+
 
     def switch_mode(self, mode: Mode):
         self.mode = mode
@@ -115,10 +106,7 @@ class NamensUI:
 
     def update_name(self, contact: Contact):
         self.contact = contact
-        self.name_entry.delete(0, tk.END)
-        self.name_entry.insert(0, contact.get_name())
-
-    
+        self.name_scanner_widget.change_input(contact)
 
 
 if __name__ == "__main__":

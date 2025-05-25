@@ -1,6 +1,7 @@
 from persistency.contact_saver import ContactSaver
 from data_structures.contact import Contact
 import tkinter as tk
+import tkinter.messagebox as messagebox
 
 class ContactPersistencyWidget:
     def __init__(self, contact_saver: ContactSaver, recent_contact: Contact, container, on_reload_contact_callback):
@@ -45,7 +46,7 @@ class ContactPersistencyWidget:
                 bg="#4CA0AF",
                 fg="#000000",
                 activebackground="#1F6E7C",
-                fg="#000000",
+                activeforeground="#000000",
                 width=max_len, 
                 anchor="w")
             contact_button.config(command=lambda cid=contact_id: self.load_contact(cid))
@@ -53,6 +54,9 @@ class ContactPersistencyWidget:
 
 
     def save_contact(self):
+        if not self.recent_contact or not self.recent_contact.token_list or not self.recent_contact.meta_data or self.recent_contact.token_list == []:
+            messagebox.showinfo("Kontakt speichern", "Es gibt keinen Kontakt zum Speichern. Bitte erfassen Sie zuerst einen Namen.")
+            return
         self.contact_saver.save_contact(self.recent_contact);
         self.render()
 

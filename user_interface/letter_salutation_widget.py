@@ -13,14 +13,14 @@ class LetterSalutationWidget:
 
     def display(self, container):
         letter_salutation_frame = tk.LabelFrame(container, text="Briefanrede:")
-        letter_salutation_frame.pack(fill="x", padx=10, pady=5)
+        letter_salutation_frame.pack(padx=10, pady=5)
 
         self.salutation_output = tk.Text(letter_salutation_frame, height=5, width=50, wrap=tk.WORD, state="disabled", bg="#f7f7f7")
-        self.salutation_output.pack(fill="both", padx=10, pady=5)
+        self.salutation_output.pack(padx=10, pady=5)
         self.salutation_output.config(state="normal")
 
         self.title_adder_language = ttk.Combobox(letter_salutation_frame, values=[l.value for l in Language], state="readonly")
-        self.title_adder_language.pack(side="left", padx=5, pady=5)
+        self.title_adder_language.pack(side="left", padx=10, pady=10)
         self.title_adder_language.set(self.contact.meta_data.language.value)
         self.title_adder_language.bind("<<ComboboxSelected>>", lambda e: self.set_salutation(Language(self.title_adder_language.get())))
 

@@ -15,18 +15,17 @@ class NameComponentWidget:
         frame = tk.Frame(container)
         frame.pack(fill="x", pady=2)
 
-        self.token_value_entry = ttk.Entry(frame)
-        self.token_value_entry.pack(side="left", fill="x", expand=True)
+        self.token_value_entry = ttk.Entry(frame, width=30)
+        self.token_value_entry.pack(side="left", fill="x", expand=True, padx=(5, 5))
         self.token_value_entry.bind("<KeyRelease>", lambda e: self.update_token_value())
 
-        self.token_type_entry = ttk.Combobox(frame, values=[t.value for t in TokenType], state="readonly")
-        self.token_type_entry.pack(side="left", fill="x", expand=True)
+
+        self.token_type_entry = ttk.Combobox(frame, values=[t.value for t in TokenType], state="readonly", width=15)
+        self.token_type_entry.pack(side="left", fill="x", expand=True, padx=(5, 0))
         self.token_type_entry.bind("<<ComboboxSelected>>", lambda e: self.change_token_type())
 
-        token_delete_button = tk.Button(frame, text="Entfernen", command=lambda: self.delete())
+        token_delete_button = tk.Button(frame, text="Entfernen", command=lambda: self.delete(), width=10, bg="#F44336", fg="white", activebackground="#D32F2F", activeforeground="white")
         token_delete_button.pack(side="left", padx=5)
-        token_delete_button.bind("<Enter>", lambda e: token_delete_button.config(bg="red"))
-        token_delete_button.bind("<Leave>", lambda e: token_delete_button.config(bg="SystemButtonFace"))
         token_delete_button.bind("<Button-1>", lambda e: self.on_delete_callback(self.id))
 
         self.token_value_entry.insert(0, self.token.value)

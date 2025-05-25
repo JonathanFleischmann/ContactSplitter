@@ -5,6 +5,7 @@ from user_interface.name_component_widget import NameComponentWidget
 
 import tkinter as tk
 from tkinter import ttk
+import tkinter.messagebox as messagebox
 
 class EditNameWidget:
 
@@ -43,22 +44,22 @@ class EditNameWidget:
                 on_delete_callback=self.delete_token
             ).add_component(self.edit_name_frame)
 
-        add_component_button = tk.Button(self.edit_name_frame, text="Komponente hinzufügen", command=self.add_token)
+        add_component_button = tk.Button(self.edit_name_frame, text="Komponente hinzufügen", command=self.add_token, bg="#4CA0AF", fg="#000000", activebackground="#1F6E7C", activeforeground="#000000")
         add_component_button.pack(pady=(10, 2))
 
-                # Alter (Age)
+        # Alter (Age)
         age_frame = tk.Frame(self.edit_name_frame)
         age_frame.pack(pady=(2, 2), fill="x")
         age_frame.columnconfigure(0, weight=1)
         age_frame.columnconfigure(1, weight=1)
 
-        age_label = tk.Label(age_frame, text="Geschätztes Alter:")
-        age_label.grid(row=0, column=0, sticky="ew", padx=(0, 5), pady=2)
-        age_entry = tk.Entry(age_frame)
-        age_entry.grid(row=0, column=1, sticky="ew", padx=(5, 0), pady=2)
-        age_entry.bind("<KeyRelease>", lambda e: self.update_age(int(age_entry.get()) if age_entry.get().isdigit() else 0))
+        age_label = tk.Label(age_frame, text="Geschätztes Alter:", width=30)
+        age_label.grid(row=0, column=0, sticky="ew", padx=(5, 5), pady=5)
+        self.age_entry = tk.Entry(age_frame, width=30)
+        self.age_entry.grid(row=0, column=1, sticky="ew", padx=(5, 5), pady=5)
+        self.age_entry.bind("<KeyRelease>", lambda e: self.update_age(self.age_entry.get()))
         if self.recent_meta_data.estimated_age:
-            age_entry.insert(0, str(self.recent_meta_data.estimated_age))
+            self.age_entry.insert(0, str(self.recent_meta_data.estimated_age))
 
         # Sprache (Language)
         language_frame = tk.Frame(self.edit_name_frame)
@@ -66,10 +67,10 @@ class EditNameWidget:
         language_frame.columnconfigure(0, weight=1)
         language_frame.columnconfigure(1, weight=1)
 
-        language_label = tk.Label(language_frame, text="Sprache:")
-        language_label.grid(row=0, column=0, sticky="ew", padx=(0, 5), pady=2)
-        language_entry = ttk.Combobox(language_frame, values=[lang.value for lang in Language], state="readonly")
-        language_entry.grid(row=0, column=1, sticky="ew", padx=(5, 0), pady=2)
+        language_label = tk.Label(language_frame, text="Sprache:", width=30)
+        language_label.grid(row=0, column=0, sticky="ew", padx=(5, 5), pady=5)
+        language_entry = ttk.Combobox(language_frame, values=[lang.value for lang in Language], state="readonly", width=30)
+        language_entry.grid(row=0, column=1, sticky="ew", padx=(5, 5), pady=5)
         language_entry.bind("<<ComboboxSelected>>", lambda e: self.update_language(language_entry.get()))
         if self.recent_meta_data.language:
             language_entry.set(self.recent_meta_data.language.value)
@@ -80,15 +81,15 @@ class EditNameWidget:
         gender_frame.columnconfigure(0, weight=1)
         gender_frame.columnconfigure(1, weight=1)
 
-        gender_label = tk.Label(gender_frame, text="Geschlecht:")
-        gender_label.grid(row=0, column=0, sticky="ew", padx=(0, 5), pady=2)
-        gender_entry = ttk.Combobox(gender_frame, values=[g for g in genders], state="readonly")
-        gender_entry.grid(row=0, column=1, sticky="ew", padx=(5, 0), pady=2)
+        gender_label = tk.Label(gender_frame, text="Geschlecht:", width=30)
+        gender_label.grid(row=0, column=0, sticky="ew", padx=(5, 5), pady=5)
+        gender_entry = ttk.Combobox(gender_frame, values=[g for g in genders], state="readonly", width=30)
+        gender_entry.grid(row=0, column=1, sticky="ew", padx=(5, 5), pady=5)
         gender_entry.bind("<<ComboboxSelected>>", lambda e: self.update_gender(gender_entry.get()))
         if self.recent_meta_data.gender:
             gender_entry.set(self.recent_meta_data.gender)
 
-        update_button = tk.Button(self.edit_name_frame, text="Aktualisieren", command=self.update_scanning_state)
+        update_button = tk.Button(self.edit_name_frame, text="Aktualisieren", command=self.update_scanning_state, bg="#4CA0AF", fg="#000000", activebackground="#1F6E7C", activeforeground="#000000")
         update_button.pack(pady=(2, 10))
 
 
@@ -113,8 +114,14 @@ class EditNameWidget:
         self.render()
 
     
-    def update_age(self, age: int):
-        self.recent_meta_data.estimated_age = age
+    def update_age(self, age: str):
+        if age.isdigit():
+            self.recent_meta_data.estimated_age = int(age)
+        else:
+            messagebox.showerror("Ungültiges Alter", "Bitte geben Sie ein gültiges Alter ein (Zahl).")
+            self.recent_meta_data.estimated_age = 0
+        self.age_entry.delete(0, tk.END)
+        self.age_entry.insert(0, str(self.recent_meta_data.estimated_age))
 
 
     def update_language(self, language: str):
@@ -126,9 +133,8 @@ class EditNameWidget:
 
 
     def update_scanning_state(self):
-        new_scanning_state = ScanningState(
+        contact = Contact(
             token_list=list(self.recent_tokens.values()),
             meta_data=self.recent_meta_data,
-            remaining_name=""
         )
-        self.on_update_callback(new_scanning_state)
+        self.on_update_callback(contact)
