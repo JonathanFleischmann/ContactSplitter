@@ -41,7 +41,7 @@ class NameScanner:
         name_part, rest = pop_first_word(scanning_state.remaining_name.removeprefix(nobility_particle).strip())
         last_name = f"{nobility_particle} {name_part}".strip() if nobility_particle else name_part
 
-        token_type = TokenType.LAST_NAME if scanning_state.has_first_name() or len(scanning_state.remaining_name.split(' ')) == 1 else TokenType.FIRST_NAME
+        token_type = TokenType.FIRST_NAME if len(scanning_state.remaining_name.split(' ')) > 1 else TokenType.LAST_NAME
         
         language: Language | None = self.nobility_particles.get(nobility_particle)
 
