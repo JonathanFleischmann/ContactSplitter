@@ -5,9 +5,11 @@ from user_interface.letter_salutation_widget import LetterSalutationWidget
 from user_interface.edit_name_widget import EditNameWidget
 from user_interface.edit_options_widget import EditOptionsWidget
 from user_interface.mode_change_widget import ModeChangeWidget, Mode
+from user_interface.contact_persistency_widget import ContactPersistencyWidget
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
+from persistency.contact_saver import ContactSaver
 import ai_integration  as ai_integration
 
 
@@ -17,6 +19,8 @@ class NamensUI:
         self.title_scanner = TitleScanner()
         name_scanner = NameScanner()
         self.scanner = Scanner(self.salutation_scanner, self.title_scanner, name_scanner)
+        
+        self.contact_saver = ContactSaver()
 
         meta_data = MetaData()
         meta_data.language = Language.DE
@@ -76,7 +80,7 @@ class NamensUI:
         elif mode == Mode.EDIT_NAME_AND_DATA:
             self.switch_to_edit_name_and_data()
         elif mode == Mode.INPUT_HISTORY:
-            pass
+            self.switch_to_input_history()
         elif mode == Mode.EDIT_OPTIONS:
             self.switch_to_edit_options()
 
@@ -94,6 +98,16 @@ class NamensUI:
 
         EditNameWidget(self.contact, self.dynamic_frame, self.update_name)
 
+    def switch_to_input_history(self):
+        self.clear_dynamic_frame()
+
+        ContactPersistencyWidget(
+            self.contact_saver,
+            self.contact,
+            self.dynamic_frame,
+            self.update_name
+        )
+
     def switch_to_edit_options(self):
         self.clear_dynamic_frame()
 
@@ -103,6 +117,8 @@ class NamensUI:
         self.contact = contact
         self.name_entry.delete(0, tk.END)
         self.name_entry.insert(0, contact.get_name())
+
+    
 
 
 if __name__ == "__main__":
