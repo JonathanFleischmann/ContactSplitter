@@ -1,6 +1,6 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import ScanningState, MetaData, Language
+from data_structures.scanning_state import ScanningState, MetaData, Language, TokenType
 from user_interface.name_component_widget import NameComponentWidget
 from user_interface.edit_name_widget import EditNameWidget
 from user_interface.edit_options_widget import EditOptionsWidget
@@ -59,12 +59,16 @@ class NamensUI:
         # Name scannen und Meta-Daten aktualisieren
         self.scanning_state = self.scanner.scan_string(name)
 
-        extracted_name = self.scanning_state.remaining_name
+        extracted_first_names = ""
+        for token in self.scanning_state.token_list:
+            if token.type == TokenType.FIRST_NAME:
+                extracted_first_names = extracted_first_names + " " + token.value
+                
         if self.scanning_state.meta_data.gender == None or self.scanning_state.meta_data.gender == "":
-            gender = ai_integration.get_gender_for_name(extracted_name)
+            gender = ai_integration.get_gender_for_name(extracted_first_names)
             self.scanning_state.meta_data.gender = gender
         
-        age = ai_integration.get_age_for_name(extracted_name)
+        age = ai_integration.get_age_for_name(name)
         self.scanning_state.meta_data.estimated_age = age
 
         self.switch_mode(self.mode)
@@ -94,16 +98,6 @@ class NamensUI:
 
         self.output_field = tk.Entry(self.dynamic_frame, width=40)
         self.output_field.pack(pady=5)
-
-        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.estimated_age}")
-        age_label.pack(anchor="w")
-
-        language_label = tk.Label(self.dynamic_frame, text=f"Sprache: {self.scanning_state.meta_data.language.value}")
-        language_label.pack(anchor="w")
-
-        gender_label = tk.Label(self.dynamic_frame, text=f"Geschlecht: {self.scanning_state.meta_data.gender}")
-        gender_label.pack(anchor="w")
-
 
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
