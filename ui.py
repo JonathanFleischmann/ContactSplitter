@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from scanner.scanner import Scanner
 from data_structures.scanning_state import ScanningState, MetaData, Language
 from user_interface.name_component_widget import NameComponentWidget
@@ -9,13 +8,11 @@ from user_interface.mode_change_widget import ModeChangeWidget, Mode
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
-
-
+import ai_integration  as ai_integration
 
 
 class NamensUI:
     def __init__(self, root):
-
         self.salutation_scanner = SalutationScanner()
         self.title_scanner = TitleScanner()
         name_scanner = NameScanner()
@@ -58,7 +55,17 @@ class NamensUI:
         self.switch_mode(self.mode)
 
     def submit_name(self, name: str):
+        # Name scannen und Meta-Daten aktualisieren
         self.scanning_state = self.scanner.scan_string(name)
+
+        extracted_name = self.scanning_state.remaining_name
+        if self.scanning_state.meta_data.gender == "Unbekannt":
+            gender = ai_integration.get_gender_for_name(extracted_name)
+            self.scanning_state.meta_data.gender = gender
+        
+        age = ai_integration.get_age_for_name(extracted_name)
+        self.scanning_state.meta_data.age = age
+
         self.switch_mode(self.mode)
 
     def switch_mode(self, mode: Mode):
@@ -87,6 +94,13 @@ class NamensUI:
         self.output_field = tk.Entry(self.dynamic_frame, width=40)
         self.output_field.pack(pady=5)
 
+        # Geschlecht und Alter anzeigen
+        gender_label = tk.Label(self.dynamic_frame, text=f"Geschlecht: {self.scanning_state.meta_data.gender}")
+        gender_label.pack(anchor="w")
+
+        age_label = tk.Label(self.dynamic_frame, text=f"Geschätztes Alter: {self.scanning_state.meta_data.age}")
+        age_label.pack(anchor="w")
+
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
 
@@ -96,7 +110,7 @@ class NamensUI:
         self.clear_dynamic_frame()
 
         EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner)
-            
+
     def update_name(self, scanningState: ScanningState):
         self.scanning_state = scanningState
         self.name_entry.delete(0, tk.END)
