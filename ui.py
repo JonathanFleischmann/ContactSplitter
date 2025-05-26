@@ -24,7 +24,7 @@ class NamensUI:
 
         meta_data = MetaData()
         meta_data.language = Language.DE
-        meta_data.gender = "Unbekannt"
+        meta_data.gender = "Divers"
         meta_data.estimated_age = 0
 
         self.contact = Contact(

@@ -1,10 +1,11 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import time
+from user_interface.ui_elements.frame import Frame
 
 class LoadingAnimation:
-    def __init__(self, parent):
-        self.container = parent
+    def __init__(self, parent: Frame):
+        self.container = parent.frame
         self.running = False
         self.loading_text_output = None
         self.phase = 0

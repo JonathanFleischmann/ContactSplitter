@@ -2,6 +2,7 @@ from data_structures.scanning_state import ScanningState, MetaData
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
+from data_structures.meta_data import Language
 import ai_integration  as ai_integration
 
 class Scanner:
@@ -43,4 +44,8 @@ class Scanner:
         age = ai_integration.get_age_for_name(scanner_state.get_name())
         scanner_state.meta_data.estimated_age = age
 
-        return scanner_state.create_contact()
+        contact = scanner_state.create_contact()
+        if contact.meta_data.language is None:
+            contact.meta_data.language = Language.EN
+
+        return contact

@@ -7,6 +7,11 @@ from persistency.title_adder import TitleAdder
 from data_structures.meta_data import Language, genders
 from scanner.title_scanner import TitleScanner
 from scanner.salutation_scanner import SalutationScanner
+from user_interface.ui_elements.button import Button
+from user_interface.ui_elements.frame import Frame
+from user_interface.ui_elements.label import Label
+from user_interface.ui_elements.entry import Entry
+from user_interface.ui_elements.combobox import Combobox
 
 
 class EditOptionsWidget:
@@ -21,79 +26,60 @@ class EditOptionsWidget:
         self.display(container)
 
     def display(self, container):
-        edit_options_frame = tk.LabelFrame(container, text="Optionen ergänzen")
-        edit_options_frame.pack(padx=10, pady=5)
+        edit_options_frame = Frame(container, "Optionen ergänzen")
 
-        self.title_adder_frame = tk.Frame(edit_options_frame)
-        self.title_adder_frame.pack(fill="x", padx=10, pady=5)
-        title_label = tk.Label(self.title_adder_frame, text="Titel hinzufügen:", width=20)
-        title_label.pack(side="left", padx=5, pady=5)
-        self.title_adder_entry = ttk.Entry(self.title_adder_frame, width=30)
-        self.title_adder_entry.pack(side="left", padx=5, pady=5)
-        self.title_adder_language = ttk.Combobox(self.title_adder_frame, values=[l.value for l in Language], state="readonly")
-        self.title_adder_language.pack(side="left", padx=5, pady=5)
-        self.title_adder_language.set(Language.DE.value)
-        title_adder_submit = tk.Button(self.title_adder_frame, text="Hinzufügen", bg="#4CA0AF", fg="#000000", activebackground="#1F6E7C", activeforeground="#000000")
-        title_adder_submit.config(command=lambda: self.add_title())
-        title_adder_submit.pack(side="left", padx=5, pady=5)
+        self.title_adder_frame = Frame(edit_options_frame.frame)
+        Label(self.title_adder_frame, "Titel hinzufügen:")
+        self.title_adder_entry = Entry(self.title_adder_frame, lambda e: self.add_title())
+        self.title_adder_language = Combobox(self.title_adder_frame, [l.value for l in Language])
+        self.title_adder_language.set_value(Language.DE.value)
+        Button(self.title_adder_frame, "Hinzufügen", lambda: self.add_title()).blue()
 
-        self.gender_adder_frame = tk.Frame(edit_options_frame)
-        self.gender_adder_frame.pack(fill="x", padx=10, pady=5)
-        gender_label = tk.Label(self.gender_adder_frame, text="Gender hinzufügen:", width=20)
-        gender_label.pack(side="left", padx=5, pady=5)
-        self.gender_adder_entry = ttk.Entry(self.gender_adder_frame, width=30)
-        self.gender_adder_entry.pack(side="left", padx=5, pady=5)
-        gender_adder_submit = tk.Button(self.gender_adder_frame, text="Hinzufügen", bg="#4CA0AF", fg="#000000", activebackground="#1F6E7C", activeforeground="#000000")
-        gender_adder_submit.config(command=lambda: self.add_gender())
-        gender_adder_submit.pack(side="left", padx=5, pady=5)
+        gender_adder_frame = Frame(edit_options_frame.frame)
+        Label(gender_adder_frame, "Gender hinzufügen:")
+        self.gender_adder_entry = Entry(gender_adder_frame)
+        Button(gender_adder_frame, "Hinzufügen", lambda: self.add_gender()).blue()
 
-        self.salutation_adder_frame = tk.Frame(edit_options_frame)
-        self.salutation_adder_frame.pack(fill="x", padx=10, pady=5)
-        salutation_label = tk.Label(self.salutation_adder_frame, text="Anrede hinzufügen:", width=20)
-        salutation_label.pack(side="left", padx=5, pady=5)
-        self.salutation_adder_entry = ttk.Entry(self.salutation_adder_frame, width=30)
-        self.salutation_adder_entry.pack(side="left", padx=5, pady=5)
-        self.salutation_adder_language = ttk.Combobox(self.salutation_adder_frame, values=[l.value for l in Language], state="readonly")
-        self.salutation_adder_language.pack(side="left", padx=5, pady=5)
-        self.salutation_adder_language.set(Language.DE.value)
-        self.salutation_adder_gender = ttk.Combobox(self.salutation_adder_frame, values=[g for g in genders], state="readonly")
-        self.salutation_adder_gender.pack(side="left", padx=5, pady=5)
-        self.salutation_adder_gender.set("Nichtbinär")
-        salutation_adder_submit = tk.Button(self.salutation_adder_frame, text="Hinzufügen", bg="#4CA0AF", fg="#000000", activebackground="#1F6E7C", activeforeground="#000000")
-        salutation_adder_submit.config(command=lambda: self.add_salutation())
-        salutation_adder_submit.pack(side="left", padx=5, pady=5)
+        salutation_adder_frame = Frame(edit_options_frame.frame)
+        Label(salutation_adder_frame, "Anrede hinzufügen:")
+        self.salutation_adder_entry = Entry(salutation_adder_frame)
+        self.salutation_adder_language = Combobox(salutation_adder_frame, [l.value for l in Language])
+        self.salutation_adder_language.set_value(Language.DE.value)
+        self.salutation_adder_gender = Combobox(salutation_adder_frame, [g for g in genders])
+        self.salutation_adder_gender.set_value("Nichtbinär")
+        Button(salutation_adder_frame, "Hinzufügen", lambda: self.add_salutation()).blue()
 
 
     def add_title(self):
-        title = self.title_adder_entry.get()
+        title = self.title_adder_entry.get_value()
         language = self.title_adder_language.get()
         if title and language:
             self.title_adder.add_title(title, Language(language))
-            self.title_adder_entry.delete(0, tk.END)
+            self.title_adder_entry.clear()
             self.title_adder_language.set(Language.DE.value)
         else:
             print("Bitte Titel und Sprache angeben.")
 
 
     def add_gender(self):
-        gender = self.gender_adder_entry.get()
+        gender = self.gender_adder_entry.get_value()
         if gender:
             self.gender_adder.add_gender(gender)
-            self.gender_adder_entry.delete(0, tk.END)
+            self.gender_adder_entry.clear()
             self.clear_container()
             self.display(self.container)
         else:
             print("Bitte Gender angeben.")
 
     def add_salutation(self):
-        salutation = self.salutation_adder_entry.get()
-        language = self.salutation_adder_language.get()
-        gender = self.salutation_adder_gender.get()
+        salutation = self.salutation_adder_entry.get_value()
+        language = self.salutation_adder_language.get_value()
+        gender = self.salutation_adder_gender.get_value()
         if salutation and language and gender:
             self.salutation_adder.add_salutation(salutation, Language(language), gender)
-            self.salutation_adder_entry.delete(0, tk.END)
-            self.salutation_adder_language.set(Language.DE.value)
-            self.salutation_adder_gender.set("Nichtbinär")
+            self.salutation_adder_entry.clear()
+            self.salutation_adder_language.set_value(Language.DE.value)
+            self.salutation_adder_gender.set_value("Nichtbinär")
         else:
             print("Bitte Anrede, Sprache und Gender angeben.")
 

@@ -3,6 +3,9 @@ import threading
 import tkinter.messagebox as messagebox
 from data_structures.contact import Contact
 from user_interface.ui_elements.loading_animation import LoadingAnimation
+from user_interface.ui_elements.frame import Frame
+from user_interface.ui_elements.button import Button
+from user_interface.ui_elements.entry import Entry
 
 class NameScannerWidget:
     def __init__(self, container, scanner, on_new_contact_callback):
@@ -15,15 +18,11 @@ class NameScannerWidget:
 
 
     def display(self, container):
-        self.name_scanner_frame = tk.LabelFrame(container, text="Namen erfassen")
-        self.name_scanner_frame.pack(padx=10, pady=5)
+        self.name_scanner_frame = Frame(container, "Namen scannen")
 
-        self.name_entry = tk.Entry(self.name_scanner_frame, width=30)
-        self.name_entry.pack(pady=(10, 0), padx=(10, 10))
+        self.name_entry = Entry(self.name_scanner_frame)
 
-        self.capture_button = tk.Button(self.name_scanner_frame, text="Namen erfassen", bg="#DAA36C", fg="#000000", activebackground="#945719", activeforeground="#000000")
-        self.capture_button.config(command=lambda: self.submit_name(self.name_entry.get()))
-        self.capture_button.pack(pady=(10, 10))
+        Button(self.name_scanner_frame, "Namen scannen", lambda: self.submit_name(self.name_entry.get_value())).orange()
 
         self.loading_animation = LoadingAnimation(self.name_scanner_frame)
 
@@ -41,7 +40,7 @@ class NameScannerWidget:
     
     def _scan_and_finish(self, name: str):
         self.contact = self.scanner.scan_string(name)
-        self.name_scanner_frame.after(0, self._on_scan_finished)
+        self.name_scanner_frame.frame.after(0, self._on_scan_finished)
 
     def _on_scan_finished(self):
         self.loading_animation.stop()
@@ -50,5 +49,4 @@ class NameScannerWidget:
 
     def change_input(self, new_contact: Contact):
         self.contact = new_contact
-        self.name_entry.delete(0, tk.END)
-        self.name_entry.insert(0, new_contact.get_name())
+        self.name_entry.set_value(new_contact.get_name())

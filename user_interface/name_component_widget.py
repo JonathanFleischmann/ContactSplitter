@@ -1,4 +1,8 @@
 from data_structures.token import Token, TokenType
+from user_interface.ui_elements.button import Button
+from user_interface.ui_elements.frame import Frame
+from user_interface.ui_elements.entry import Entry
+from user_interface.ui_elements.combobox import Combobox
 
 import tkinter as tk
 from tkinter import ttk
@@ -12,34 +16,21 @@ class NameComponentWidget:
         self.on_delete_callback = on_delete_callback
 
     def add_component(self, container: tk.Frame) -> tk.Frame:
-        frame = tk.Frame(container)
-        frame.pack(fill="x", pady=2)
+        frame = Frame(container)
+        self.token_value_entry = Entry(frame, lambda e: self.update_token_value(), True)
+        self.token_type_entry = Combobox(frame, [t.value for t in TokenType], lambda e: self.change_token_type(), True)
+        Button(frame, "Entfernen", lambda: self.on_delete_callback(), True).red()
 
-        self.token_value_entry = ttk.Entry(frame, width=30)
-        self.token_value_entry.pack(side="left", fill="x", expand=True, padx=(5, 5))
-        self.token_value_entry.bind("<KeyRelease>", lambda e: self.update_token_value())
-
-
-        self.token_type_entry = ttk.Combobox(frame, values=[t.value for t in TokenType], state="readonly", width=15)
-        self.token_type_entry.pack(side="left", fill="x", expand=True, padx=(5, 0))
-        self.token_type_entry.bind("<<ComboboxSelected>>", lambda e: self.change_token_type())
-
-        token_delete_button = tk.Button(frame, text="Entfernen", command=lambda: self.delete(), width=10, bg="#F44336", fg="white", activebackground="#D32F2F", activeforeground="white")
-        token_delete_button.pack(side="left", padx=5)
-        token_delete_button.bind("<Button-1>", lambda e: self.on_delete_callback(self.id))
-
-        self.token_value_entry.insert(0, self.token.value)
-        self.token_type_entry.set(self.token.type.value)
-
-        return frame
+        self.token_value_entry.set_value(self.token.value)
+        self.token_type_entry.set_value(self.token.type.value)
 
     def update_token_value(self):
-        new_value = self.token_value_entry.get()
+        new_value = self.token_value_entry.get_value()
         self.token.value = new_value
         self.on_update_callback(self.id, self.token)
 
     def change_token_type(self):
-        selected_type = self.token_type_entry.get()
+        selected_type = self.token_type_entry.get_value()
         self.token.type = TokenType(selected_type)
         self.on_update_callback(self.id, self.token)
 
