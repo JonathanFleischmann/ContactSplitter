@@ -1,6 +1,6 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import MetaData, Language, Contact
+from data_structures.scanning_state import Contact
 from user_interface.name_scanner_widget import NameScannerWidget
 from user_interface.letter_salutation_widget import LetterSalutationWidget
 from user_interface.edit_name_widget import EditNameWidget
@@ -13,31 +13,23 @@ from scanner.name_scanner import NameScanner
 from persistency.contact_saver import ContactSaver
 
 
-class NamensUI:
-    def __init__(self, root):
-        self.salutation_scanner = SalutationScanner()
-        self.title_scanner = TitleScanner()
-        name_scanner = NameScanner()
-        self.scanner = Scanner(self.salutation_scanner, self.title_scanner, name_scanner)
-        
-        self.contact_saver = ContactSaver()
+class UserInterface:
 
-        meta_data = MetaData()
-        meta_data.language = Language.DE
-        meta_data.gender = "Divers"
-        meta_data.estimated_age = 0
-
-        self.contact = Contact(
-            token_list=[],
-            meta_data=meta_data
-        )
-
-        self.root = root
+    def start_ui(self, scanner: Scanner, contact_saver: ContactSaver, contact: Contact):
+        self.root = tk.Tk()
         self.root.title("ContactSplitter")
+
+        self.scanner: Scanner = scanner
+        self.contact_saver: ContactSaver = contact_saver
+        self.title_scanner: TitleScanner = scanner.title_scanner
+        self.salutation_scanner: SalutationScanner = scanner.salutation_scanner
+        self.contact: Contact = contact
 
         self.mode = Mode.LETTER_SALUTATION
 
         self.build_ui()
+
+        self.root.mainloop()
 
     def build_ui(self):
         
@@ -107,9 +99,3 @@ class NamensUI:
     def update_name(self, contact: Contact):
         self.contact = contact
         self.name_scanner_widget.change_input(contact)
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = NamensUI(root)
-    root.mainloop()
