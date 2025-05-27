@@ -39,7 +39,7 @@ class LetterGreetingGenerator:
                 greeting = greeting + " " + token.value
         for token in contact.token_list:
             if token.type == TokenType.LAST_NAME:
-                greeting = greeting + " " + token.value
+                greeting = greeting + "-" + token.value
         greeting = greeting + ","
         return greeting 
 
