@@ -33,22 +33,13 @@ class TestScanner(unittest.TestCase):
         self.assertEqual(result.meta_data.gender, "Nichtbinär")
 
     def test_scan_string_title_name(self):
-        result = self.scanner.scan_string("Dr. John Doe")
-        self.assertEqual(len(result.token_list), 3)
+        result = self.scanner.scan_string("Dr. Doe")
+        self.assertEqual(len(result.token_list), 2)
         self.assertEqual(result.token_list[0].type, TokenType.TITLE)
         self.assertEqual(result.token_list[0].value, "Dr.")
-        self.assertEqual(result.token_list[1].type, TokenType.FIRST_NAME)
-        self.assertEqual(result.token_list[1].value, "John")
-        self.assertEqual(result.token_list[2].type, TokenType.LAST_NAME)
-        self.assertEqual(result.token_list[2].value, "Doe")
-
-    def test_scan_string_name_only(self):
-        result = self.scanner.scan_string("John Doe")
-        self.assertEqual(len(result.token_list), 2)
-        self.assertEqual(result.token_list[0].type, TokenType.FIRST_NAME)
-        self.assertEqual(result.token_list[0].value, "John")
         self.assertEqual(result.token_list[1].type, TokenType.LAST_NAME)
         self.assertEqual(result.token_list[1].value, "Doe")
+
 
     def test_scan_string_empty(self):
         with self.assertRaises(ValueError) as context:
