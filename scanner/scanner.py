@@ -3,7 +3,7 @@ from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
 from data_structures.meta_data import Language
-import ai_integration  as ai_integration
+import scanner.ai_integration  as ai_integration
 
 class Scanner:
 
