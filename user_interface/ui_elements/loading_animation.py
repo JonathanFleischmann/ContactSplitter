@@ -1,6 +1,4 @@
 import tkinter as tk
-import tkinter.messagebox as messagebox
-import time
 from user_interface.ui_elements.frame import Frame
 
 class LoadingAnimation:

@@ -5,7 +5,6 @@ from user_interface.name_component_widget import NameComponentWidget
 from user_interface.ui_elements.button import Button
 from user_interface.ui_elements.frame import Frame
 from user_interface.ui_elements.label import Label
-from user_interface.ui_elements.entry import Entry
 from user_interface.ui_elements.combobox import Combobox
 
 import tkinter as tk

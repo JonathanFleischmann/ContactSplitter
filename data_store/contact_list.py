@@ -1,5 +1,6 @@
 from typing import List
 from data_structures.contact import Contact
+from data_store.database import Database
 
 class ContactList:
     """
@@ -8,6 +9,7 @@ class ContactList:
 
     def __init__(self):
         self.contacts: List[Contact] = []
+        self.database = Database()
 
     def add_contact(self, contact: Contact) -> None:
         """
@@ -38,4 +40,16 @@ class ContactList:
             del self.contacts[index]
         else:
             raise IndexError("Index out of range.")
+        
+    def store_persistent(self):
+        """
+        Store the contact list persistently in the database.
+        """
+        self.database.save_contacts(self.contacts)
+
+    def load_persistent(self):
+        """
+        Load the contact list from the database.
+        """
+        self.contacts = self.database.load_contacts()
 
