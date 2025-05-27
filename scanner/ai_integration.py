@@ -12,7 +12,6 @@ API_KEY = get_api_key()
 client = OpenAI(api_key=API_KEY)
 
 def get_gender_for_name(name: str) -> str:
-    raise ValueError("Name cannot be empty") 
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         temperature=0.2,

@@ -49,13 +49,6 @@ class EditNameWidget:
 
         Button(self.edit_name_frame, "Komponente hinzufügen", lambda: self.add_token()).blue()
 
-        # Alter (Age)
-        age_frame = Frame(self.edit_name_frame.frame)
-        Label(age_frame, "Alter:", True)
-        self.age_entry = Entry(age_frame, lambda e: self.update_age(self.age_entry.get_value()), True)
-        if self.recent_meta_data.estimated_age:
-            self.age_entry.set_value(str(self.recent_meta_data.estimated_age))
-
         # Sprache (Language)
         language_frame = Frame(self.edit_name_frame.frame)
         Label(language_frame, "Sprache:", True)

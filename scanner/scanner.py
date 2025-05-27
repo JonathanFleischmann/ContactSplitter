@@ -48,8 +48,6 @@ class Scanner:
                 gender = "Nicht ermittelbar"
             scanner_state.meta_data.gender = gender
         
-        age = ai_integration.get_age_for_name(scanner_state.get_name())
-        scanner_state.meta_data.estimated_age = age
 
         contact = scanner_state.create_contact()
         if contact.meta_data.language is None:
