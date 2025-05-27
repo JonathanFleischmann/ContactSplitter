@@ -1,4 +1,5 @@
-import ai_integration as ai_integration
+import scanner.ai_integration as ai_integration
+from data_structures.scanning_state import MetaData, Language, Contact
 from scanner.scanner import Scanner
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
