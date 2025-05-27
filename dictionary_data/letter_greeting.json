@@ -2,6 +2,7 @@
   "Sehr geehrter Herr": { "lang": "de", "gender": "Männlich", "include_name": true },
   "Sehr geehrte Frau": { "lang": "de", "gender": "Weiblich", "include_name": true },
   "Hallo": { "lang": "de", "gender": "Nichtbinär", "include_name": true },
+  "Hallo": { "lang": "de", "gender": "Divers", "include_name": true },
   "Sehr geehrte Damen und Herren und alle dazwischen und außerhalb": { "lang": "de", "gender": "", "include_name": false },
 
   "Dear": { "lang": "en", "gender": "", "include_name": true },

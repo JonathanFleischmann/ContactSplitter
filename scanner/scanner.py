@@ -39,8 +39,11 @@ class Scanner:
                 self.name_scanner.scan_name(scanner_state)
 
         if scanner_state.meta_data.gender == None or scanner_state.meta_data.gender == "":
-            gender = ai_integration.get_gender_for_name(scanner_state.get_first_name())
-            scanner_state.meta_data.gender = gender
+            if scanner_state.has_first_name():
+                gender = ai_integration.get_gender_for_name(scanner_state.get_first_name())
+            else:
+                gender = "Nicht ermittelbar"
+        scanner_state.meta_data.gender = gender
         
         age = ai_integration.get_age_for_name(scanner_state.get_name())
         scanner_state.meta_data.estimated_age = age

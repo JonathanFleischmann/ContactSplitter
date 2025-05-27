@@ -11,7 +11,8 @@ class LetterGreetingGenerator:
 
     def __init__(self):
 
-        self.greetings : dict[{str, bool}, dict[Language, str]] = {}
+        self.greetings : dict[str, dict[Language, str]] = {}
+        self.include_name  = {}
 
         with open(self.file_path, 'r', encoding='utf-8') as file:
             loaded_greetings = json.load(file)
@@ -22,19 +23,25 @@ class LetterGreetingGenerator:
                 }
                 for key, value in loaded_greetings.items()
             }
+            self.include_name = {
+                key: value.get("include_name", False)
+                for key, value in loaded_greetings.items()
+            }
 
     def generate(self, contact: Contact, lang: Language = None) -> str:
-        print(self.greetings)
         if lang is None:
             lang = contact.meta_data.language
-        greeting = self.get_greeting(contact, lang)
+        greeting, include_name = self.get_greeting(contact, lang)
+        if not include_name:
+            return greeting + ","
         for token in contact.token_list:
             if token.type == TokenType.TITLE:
                 greeting = greeting + " " + token.value
         for token in contact.token_list:
             if token.type == TokenType.LAST_NAME:
                 greeting = greeting + " " + token.value
-        return greeting
+        greeting = greeting + ","
+        return greeting 
 
 
     
@@ -44,11 +51,11 @@ class LetterGreetingGenerator:
 
         for greeting, data in self.greetings.items():
             if convert_string_to_language(data["lang"]) == lang and gender == data["gender"]:
-                return greeting
+                return greeting, self.include_name.get(greeting, True)
         
         # Fallback to gender-neutral greeting
         for greeting, data in self.greetings.items():
             if data["lang"] == lang and data["gender"] == "":
-                return greeting
+                return greeting, self.include_name.get(greeting, True)
         # If no greeting is found, return a default message
-        return "Hello"
+        return "Hello", self.include_name.get(greeting, True)

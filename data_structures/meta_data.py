@@ -8,7 +8,9 @@ genders = {
     "Weiblich",
     "Nichtbinär",
     "Divers",
-    "Agender"
+    "Agender",
+    "Genderfluid",
+    "Nicht ermittelbar"
 }
 
 
