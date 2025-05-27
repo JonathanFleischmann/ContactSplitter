@@ -60,7 +60,7 @@ class LetterGreetingGenerator:
         
         # Fallback to gender-neutral greeting
         for greeting, data in self.greetings.items():
-            if data["lang"] == lang and data["gender"] == "":
+            if data["lang"] == lang and data["gender"] == "" and (name_available or not self.include_name.get(greeting, True)):
                 return greeting, self.include_name.get(greeting, True)
         # If no greeting is found, return a default message
-        return "Hello", self.include_name.get(greeting, True)
+        return "Hello", name_available
