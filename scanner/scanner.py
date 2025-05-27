@@ -54,15 +54,3 @@ class Scanner:
             contact.meta_data.language = Language.DE
 
         return contact
-    
-    def get_empty_contact(self) -> Contact:
-        meta_data = MetaData()
-        meta_data.language = Language.DE
-        meta_data.gender = "Divers"
-        meta_data.estimated_age = 0
-
-        contact = Contact(
-            token_list=[],
-            meta_data=meta_data
-        )
-        return contact
