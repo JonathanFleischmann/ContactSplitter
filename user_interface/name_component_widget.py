@@ -19,7 +19,7 @@ class NameComponentWidget:
         frame = Frame(container)
         self.token_value_entry = Entry(frame, lambda e: self.update_token_value(), True)
         self.token_type_entry = Combobox(frame, [t.value for t in TokenType], lambda e: self.change_token_type(), True)
-        Button(frame, "Entfernen", lambda: self.on_delete_callback(), True).red()
+        Button(frame, "Entfernen", lambda: self.delete(), True).red()
 
         self.token_value_entry.set_value(self.token.value)
         self.token_type_entry.set_value(self.token.type.value)
