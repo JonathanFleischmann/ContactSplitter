@@ -12,7 +12,6 @@ API_KEY = get_api_key()
 client = OpenAI(api_key=API_KEY)
 
 def get_gender_for_name(name: str) -> str:
-    print("name: " + name)
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         temperature=0.2,
@@ -94,7 +93,6 @@ def get_gender_for_name(name: str) -> str:
         ],
     )
     gender = response.choices[0].message.content
-    print("gender: " + gender)
     if gender != "M" and gender != "W":
         gender = "D"
     if gender == "M":
