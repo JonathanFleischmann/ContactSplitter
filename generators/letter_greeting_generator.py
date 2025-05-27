@@ -11,26 +11,23 @@ class LetterGreetingGenerator:
 
     def __init__(self):
 
-        self.greetings : dict[str, dict[Language, str]] = {}
+        self.greetings : dict[{str, bool}, dict[Language, str]] = {}
 
         with open(self.file_path, 'r', encoding='utf-8') as file:
             loaded_greetings = json.load(file)
             self.greetings = {
                 key: {
                     "lang": convert_string_to_language(value["lang"]),
-                    "gender": value["gender"]
+                    "gender": value["gender"],
                 }
                 for key, value in loaded_greetings.items()
             }
 
     def generate(self, contact: Contact, lang: Language = None) -> str:
+        print(self.greetings)
         if lang is None:
             lang = contact.meta_data.language
         greeting = self.get_greeting(contact, lang)
-        for token in contact.token_list:
-            if token.type == TokenType.SALUTATION:
-                greeting = greeting + " " + token.value
-                break
         for token in contact.token_list:
             if token.type == TokenType.TITLE:
                 greeting = greeting + " " + token.value
@@ -42,7 +39,6 @@ class LetterGreetingGenerator:
 
     
     def get_greeting(self, contact: Contact, lang: Language) -> str:
-        #TODO: French stuff
         gender = contact.meta_data.gender
 
 

@@ -1,21 +1,21 @@
 {
-  "Sehr geehrter": { "lang": "de", "gender": "Männlich" },
-  "Sehr geehrte": { "lang": "de", "gender": "Weiblich" },
-  "Hallo": { "lang": "de", "gender": "Nichtbinär" },
-  "Sehr geehrte Damen und Herren und alle dazwischen und außerhalb": { "lang": "de", "gender": "" },
+  "Sehr geehrter Herr": { "lang": "de", "gender": "Männlich", "include_name": true },
+  "Sehr geehrte Frau": { "lang": "de", "gender": "Weiblich", "include_name": true },
+  "Hallo": { "lang": "de", "gender": "Nichtbinär", "include_name": true },
+  "Sehr geehrte Damen und Herren und alle dazwischen und außerhalb": { "lang": "de", "gender": "", "include_name": false },
 
-  "Dear": { "lang": "en", "gender": "" },
+  "Dear": { "lang": "en", "gender": "", "include_name": true },
   
-  "Egregi Signori": { "lang": "it", "gender": "" },
-  "Gentile Signora": { "lang": "it", "gender": "Weiblich" },
-  "Egregio Signor": { "lang": "it", "gender": "Männlich" },
+  "Egregi Signori": { "lang": "it", "gender": "", "include_name": true },
+  "Gentile Signora": { "lang": "it", "gender": "Weiblich", "include_name": true },
+  "Egregio Signor": { "lang": "it", "gender": "Männlich", "include_name": true },
 
-  "Messieursdames": { "lang": "fr", "gender": "" },
-  "Madame": { "lang": "fr", "gender": "Weiblich" },
-  "Monsieur": { "lang": "fr", "gender": "Männlich"},
+  "Messieursdames": { "lang": "fr", "gender": "", "include_name": true },
+  "Madame": { "lang": "fr", "gender": "Weiblich", "include_name": true },
+  "Monsieur": { "lang": "fr", "gender": "Männlich", "include_name": true},
 
-  "Estimados Señores y Señoras": {"lang": "es", "gender": ""},
-  "Estimado Señor": {"lang": "es", "gender": "Männlich"},
-  "Estimada Señora": {"lang": "es", "gender": "Weiblich"}
+  "Estimados Señores y Señoras": {"lang": "es", "gender": "", "include_name": true},
+  "Estimado Señor": {"lang": "es", "gender": "Männlich", "include_name": true},
+  "Estimada Señora": {"lang": "es", "gender": "Weiblich", "include_name": true}
 
 }

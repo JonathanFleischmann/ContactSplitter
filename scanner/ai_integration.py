@@ -95,6 +95,12 @@ def get_gender_for_name(name: str) -> str:
     gender = response.choices[0].message.content
     if gender != "M" and gender != "W":
         gender = "D"
+    if gender == "M":
+        return "Männlich"
+    if gender == "W":
+        return "Weiblich"
+    if gender == "D":
+        return "Divers"
     return gender
 
 
