@@ -1,6 +1,6 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.contact import Contact
+from data_structures.contact import Contact, get_empty_contact
 from data_structures.contact import get_empty_contact
 from user_interface.name_scanner_widget import NameScannerWidget
 from user_interface.letter_salutation_widget import LetterSalutationWidget
@@ -103,4 +103,4 @@ class UserInterface:
         self.contact = contact
 
     def reset_contact(self):
-        self.contact = self.scanner.get_empty_contact()
+        self.contact = get_empty_contact()
