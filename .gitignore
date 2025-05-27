@@ -4,3 +4,6 @@ dictionary_data\__pycache__
 scanner\__pycache__
 __pycache__
 contacts.json
+dist/
+build/
+main.spec
