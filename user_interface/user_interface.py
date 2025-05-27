@@ -9,18 +9,18 @@ from user_interface.mode_change_widget import ModeChangeWidget, Mode
 from user_interface.contact_persistency_widget import ContactPersistencyWidget
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
-from scanner.name_scanner import NameScanner
-from persistency.contact_saver import ContactSaver
+from data_store.contact_list import ContactList
+
 
 
 class UserInterface:
 
-    def start_ui(self, scanner: Scanner, contact_saver: ContactSaver, contact: Contact):
+    def start_ui(self, scanner: Scanner, contact_list: ContactList, contact: Contact):
         self.root = tk.Tk()
         self.root.title("ContactSplitter")
 
         self.scanner: Scanner = scanner
-        self.contact_saver: ContactSaver = contact_saver
+        self.contact_list: ContactList = contact_list
         self.title_scanner: TitleScanner = scanner.title_scanner
         self.salutation_scanner: SalutationScanner = scanner.salutation_scanner
         self.contact: Contact = contact
@@ -85,7 +85,7 @@ class UserInterface:
         self.clear_dynamic_frame()
 
         ContactPersistencyWidget(
-            self.contact_saver,
+            self.contact_list,
             self.contact,
             self.dynamic_frame,
             self.update_name

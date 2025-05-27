@@ -1,11 +1,9 @@
-import scanner.ai_integration as ai_integration
-from data_structures.scanning_state import MetaData, Language, Contact
 from scanner.scanner import Scanner
 from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
-from persistency.contact_saver import ContactSaver
 from user_interface.user_interface import UserInterface
+from data_store.contact_list import ContactList
 
 def main():
     salutation_scanner = SalutationScanner()
@@ -13,9 +11,9 @@ def main():
     name_scanner = NameScanner()
     scanner = Scanner(salutation_scanner, title_scanner, name_scanner)
 
-    contact_saver = ContactSaver()
+    contact_list = ContactList()
 
-    UserInterface().start_ui(scanner, contact_saver, scanner.get_empty_contact())
+    UserInterface().start_ui(scanner, contact_list, scanner.get_empty_contact())
 
     
 

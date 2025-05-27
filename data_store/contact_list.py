@@ -1,5 +1,5 @@
 from typing import List
-from ContactSplitter.data_structures.contact import Contact
+from data_structures.contact import Contact
 
 class ContactList:
     """

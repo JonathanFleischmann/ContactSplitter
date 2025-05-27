@@ -5,6 +5,7 @@ from scanner.name_scanner import NameScanner
 from data_structures.meta_data import Language
 from data_structures.contact import Contact
 import scanner.ai_integration  as ai_integration
+from core import flip_names_on_comma_between
 
 class Scanner:
 
@@ -21,13 +22,15 @@ class Scanner:
     
     def scan_string(self, input_string: str) -> Contact:
 
-        input_string = input_string.strip()
+        # Flip names on comma if necessary
+        input_string = flip_names_on_comma_between(input_string)
         
-        if not input_string:
+        if not input_string or input_string.strip() == '':
             raise ValueError("Input string is empty")
         
         empty_meta_data = MetaData()
         scanner_state = ScanningState(token_list=[], meta_data=empty_meta_data, remaining_name=input_string)
+
 
         while scanner_state.remaining_name.strip() != '':
             # Scan for title
