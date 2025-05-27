@@ -1,4 +1,4 @@
-from persistency.contact_saver import ContactSaver
+from data_store.contact_list import ContactList
 from data_structures.contact import Contact
 from user_interface.ui_elements.button import Button
 from user_interface.ui_elements.frame import Frame
@@ -6,8 +6,8 @@ import tkinter as tk
 import tkinter.messagebox as messagebox
 
 class ContactPersistencyWidget:
-    def __init__(self, contact_saver: ContactSaver, recent_contact: Contact, container, on_reload_contact_callback):
-        self.contact_saver = contact_saver
+    def __init__(self, contact_list: ContactList, recent_contact: Contact, container, on_reload_contact_callback):
+        self.contact_list = contact_list
         self.recent_contact = recent_contact
         self.container = container
         self.on_reload_contact_callback = on_reload_contact_callback
@@ -25,23 +25,19 @@ class ContactPersistencyWidget:
 
         Button(self.persistency_frame, text="Kontakt speichern", callback_method=lambda: self.save_contact()).green()
         
-        previews = list(self.contact_saver.get_preview_of_all_contacts().items())
-        for contact_id, contact_name in reversed(previews):
-            Button(self.persistency_frame, text=contact_name, callback_method=lambda cid=contact_id: self.load_contact(cid)).blue()
+        saved_contacts = self.contact_list.get_contacts()
+        for contact in reversed(saved_contacts):
+            Button(self.persistency_frame, text=contact.get_name(), callback_method=lambda cont=contact: self.load_contact(cont)).blue()
 
 
     def save_contact(self):
         if not self.recent_contact or not self.recent_contact.token_list or not self.recent_contact.meta_data or self.recent_contact.token_list == []:
             messagebox.showinfo("Kontakt speichern", "Es gibt keinen Kontakt zum Speichern. Bitte erfassen Sie zuerst einen Namen.")
             return
-        self.contact_saver.save_contact(self.recent_contact);
+        self.contact_list.add_contact(self.recent_contact);
         self.render()
 
 
-    def load_contact(self, contact_id: int):
-        contact = self.contact_saver.get_contact(contact_id)
-        if contact:
-            self.recent_contact = contact
-            self.on_reload_contact_callback(self.recent_contact)
-        else:
-            print(f"Kontakt mit ID {contact_id} nicht gefunden.")
+    def load_contact(self, contact: Contact):
+        self.recent_contact = contact
+        self.on_reload_contact_callback(self.recent_contact)
