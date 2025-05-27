@@ -14,10 +14,9 @@ import tkinter.messagebox as messagebox
 
 class EditNameWidget:
 
-    def __init__(self, contact: Contact, container, on_update_callback):
+    def __init__(self, contact: Contact, container):
         self.contact = contact
         self.container = container
-        self.on_update_callback = on_update_callback
 
         self.initialize(container)
 
@@ -43,8 +42,7 @@ class EditNameWidget:
                 id=id,
                 token=token,
                 container=self.edit_name_frame.frame,
-                on_update_callback=self.update_token,
-                on_delete_callback=self.delete_token
+                on_delete_callback=lambda id=id: self.delete_token(id),
             ).add_component(self.edit_name_frame.frame)
 
         Button(self.edit_name_frame, "Komponente hinzufügen", lambda: self.add_token()).blue()
@@ -69,8 +67,6 @@ class EditNameWidget:
         gender_entry = Combobox(gender_frame, [g for g in genders], lambda e: self.update_gender(gender_entry.get_value()), True)
         if self.recent_meta_data.gender:
             gender_entry.set_value(self.recent_meta_data.gender)
-
-        Button(self.edit_name_frame, "Aktualisieren", lambda: self.update_scanning_state()).blue()
 
 
     def update_token(self, id: int, token: Token):
@@ -109,11 +105,3 @@ class EditNameWidget:
 
     def update_gender(self, gender: str):
         self.recent_meta_data.gender = gender
-
-
-    def update_scanning_state(self):
-        contact = Contact(
-            token_list=list(self.recent_tokens.values()),
-            meta_data=self.recent_meta_data,
-        )
-        self.on_update_callback(contact)

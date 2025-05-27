@@ -81,7 +81,7 @@ class UserInterface:
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
 
-        EditNameWidget(self.contact, self.dynamic_frame, self.update_name)
+        EditNameWidget(self.contact, self.dynamic_frame)
 
     def switch_to_input_history(self):
         self.clear_dynamic_frame()
@@ -90,7 +90,8 @@ class UserInterface:
             self.contact_list,
             self.contact,
             self.dynamic_frame,
-            self.update_name
+            self.update_name,
+            self.reset_contact
         )
 
     def switch_to_edit_options(self):
@@ -100,4 +101,6 @@ class UserInterface:
 
     def update_name(self, contact: Contact):
         self.contact = contact
-        self.name_scanner_widget.change_input(contact)
+
+    def reset_contact(self):
+        self.contact = self.scanner.get_empty_contact()

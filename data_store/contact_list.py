@@ -29,4 +29,13 @@ class ContactList:
             self.contacts[index] = contact
         else:
             raise IndexError("Index out of range.")
+        
+    def delete_contact(self, index: int) -> None:
+        """
+        Delete a contact from the list.
+        """
+        if 0 <= index < len(self.contacts):
+            del self.contacts[index]
+        else:
+            raise IndexError("Index out of range.")
 

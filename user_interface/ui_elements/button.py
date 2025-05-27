@@ -2,11 +2,14 @@ import tkinter as tk
 from user_interface.ui_elements.frame import Frame
 
 class Button:
-    def __init__(self, parent: Frame, text, callback_method, in_one_row=False):
+    def __init__(self, parent: Frame, text, callback_method, in_one_row=False, slim=False):
+        if slim:
+            self.length = 10
+        else:
+            self.length = 22
         self.parent = parent
         self.text = text
         self.callback_method = callback_method
-        self.length = 22
         self.in_one_row = in_one_row
 
     def green(self):

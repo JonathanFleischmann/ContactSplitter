@@ -45,8 +45,4 @@ class NameScannerWidget:
     def _on_scan_finished(self):
         self.loading_animation.stop()
         self.on_new_contact_callback(self.contact)
-
-
-    def change_input(self, new_contact: Contact):
-        self.contact = new_contact
-        self.name_entry.set_value(new_contact.get_name())
+        self.name_entry.set_value('')

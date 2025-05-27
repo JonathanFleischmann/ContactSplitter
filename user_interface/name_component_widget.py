@@ -9,10 +9,9 @@ from tkinter import ttk
 
 class NameComponentWidget:
 
-    def __init__(self, id, token: Token, container: tk.Frame, on_update_callback, on_delete_callback):
+    def __init__(self, id, token: Token, container: tk.Frame, on_delete_callback):
         self.id = id
         self.token = token
-        self.on_update_callback = on_update_callback
         self.on_delete_callback = on_delete_callback
 
     def add_component(self, container: tk.Frame) -> tk.Frame:
@@ -27,12 +26,10 @@ class NameComponentWidget:
     def update_token_value(self):
         new_value = self.token_value_entry.get_value()
         self.token.value = new_value
-        self.on_update_callback(self.id, self.token)
 
     def change_token_type(self):
         selected_type = self.token_type_entry.get_value()
         self.token.type = TokenType(selected_type)
-        self.on_update_callback(self.id, self.token)
 
     def delete(self):
         self.on_delete_callback(self.id)
