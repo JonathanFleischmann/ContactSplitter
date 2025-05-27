@@ -5,18 +5,39 @@
   "Hallo": { "lang": "de", "gender": "Divers", "include_name": true },
   "Sehr geehrte Damen und Herren und alle dazwischen und außerhalb": { "lang": "de", "gender": "", "include_name": false },
 
-  "Dear": { "lang": "en", "gender": "", "include_name": true },
+  "Dear Sir or Madam": { "lang": "en", "gender": "", "include_name": false },
+  "Dear Sir": { "lang": "en", "gender": "Männlich", "include_name": false },
+  "Dear Madam": { "lang": "en", "gender": "Weiblich", "include_name": false },
   
-  "Egregi Signori": { "lang": "it", "gender": "", "include_name": true },
+  "Egregi Signori": { "lang": "it", "gender": "", "include_name": false },
   "Gentile Signora": { "lang": "it", "gender": "Weiblich", "include_name": true },
   "Egregio Signor": { "lang": "it", "gender": "Männlich", "include_name": true },
 
-  "Messieursdames": { "lang": "fr", "gender": "", "include_name": true },
+  "Messieursdames": { "lang": "fr", "gender": "", "include_name": false },
   "Madame": { "lang": "fr", "gender": "Weiblich", "include_name": true },
   "Monsieur": { "lang": "fr", "gender": "Männlich", "include_name": true},
 
-  "Estimados Señores y Señoras": {"lang": "es", "gender": "", "include_name": true},
+  "Estimados Señores y Señoras": {"lang": "es", "gender": "", "include_name": false},
   "Estimado Señor": {"lang": "es", "gender": "Männlich", "include_name": true},
-  "Estimada Señora": {"lang": "es", "gender": "Weiblich", "include_name": true}
+  "Estimada Señora": {"lang": "es", "gender": "Weiblich", "include_name": true},
 
+  "Excelentíssimos Senhores e Senhoras": { "lang": "pt", "gender": "", "include_name": false },
+  "Excelentíssimo Senhor": { "lang": "pt", "gender": "Männlich", "include_name": false },
+  "Excelentíssima Senhora": { "lang": "pt", "gender": "Männlich", "include_name": false },
+
+  "Szanowni Państwo": { "lang": "pl", "gender": "", "include_name": false },
+  "Wielce szanowny Panie": { "lang": "pl", "gender": "Männlich", "include_name": true },
+  "Szanowna Pani": { "lang": "pl", "gender": "Weiblich", "include_name": true },
+
+  "Vážené Dámy a Pánové": { "lang": "cs", "gender": "", "include_name": false },
+  "Vážený Pane": { "lang": "cs", "gender": "Männlich", "include_name": false },
+  "Vážená Paní": { "lang": "cs", "gender": "Männlich", "include_name": false },
+
+  "Doamnelor și domnilor": { "lang": "ro", "gender": "", "include_name": false },
+  "Domnule": { "lang": "ro", "gender": "Männlich", "include_name": false },
+  "Doamnă": { "lang": "ro", "gender": "Männlich", "include_name": false },
+
+  "Poštovane Dame i Gospodo": { "lang": "sr", "gender": "", "include_name": false },
+  "Poštovani gospodine": { "lang": "sr", "gender": "Männlich", "include_name": true },
+  "Poštovana gospođo": { "lang": "sr", "gender": "Weiblich", "include_name": true }
 }

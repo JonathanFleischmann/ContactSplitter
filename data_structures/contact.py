@@ -17,6 +17,14 @@ class Contact:
             
         return False
     
+    def has_last_name(self) -> bool:
+        
+        for token in self.token_list:
+            if token.type == TokenType.LAST_NAME:
+                return True
+            
+        return False
+    
 
     def has_salutation(self) -> bool:
         

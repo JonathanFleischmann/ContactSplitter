@@ -31,31 +31,36 @@ class LetterGreetingGenerator:
     def generate(self, contact: Contact, lang: Language = None) -> str:
         if lang is None:
             lang = contact.meta_data.language
-        greeting, include_name = self.get_greeting(contact, lang)
+        greeting, include_name = self.get_greeting(contact, lang, contact.has_last_name())
         if not include_name:
             return greeting + ","
         for token in contact.token_list:
             if token.type == TokenType.TITLE:
                 greeting = greeting + " " + token.value
+        multiple_last_names = False
         for token in contact.token_list:
             if token.type == TokenType.LAST_NAME:
-                greeting = greeting + " " + token.value
+                if multiple_last_names:
+                    greeting = greeting + "-" + token.value
+                else:
+                    greeting = greeting + " " + token.value
+                    multiple_last_names = True
         greeting = greeting + ","
         return greeting 
 
 
     
-    def get_greeting(self, contact: Contact, lang: Language) -> str:
+    def get_greeting(self, contact: Contact, lang: Language, name_available: bool) -> str:
         gender = contact.meta_data.gender
-
+            
 
         for greeting, data in self.greetings.items():
-            if convert_string_to_language(data["lang"]) == lang and gender == data["gender"]:
+            if convert_string_to_language(data["lang"]) == lang and gender == data["gender"] and name_available == self.include_name.get(greeting, True):
                 return greeting, self.include_name.get(greeting, True)
         
         # Fallback to gender-neutral greeting
         for greeting, data in self.greetings.items():
-            if data["lang"] == lang and data["gender"] == "":
+            if data["lang"] == lang and data["gender"] == "" and (name_available or not self.include_name.get(greeting, True)):
                 return greeting, self.include_name.get(greeting, True)
         # If no greeting is found, return a default message
-        return "Hello", self.include_name.get(greeting, True)
+        return "Hello", name_available
