@@ -32,12 +32,10 @@ class Language(Enum):
 class MetaData:
     gender: str | None
     language: Language | None
-    estimated_age: int | None
 
     def __init__(self):
         self.gender = None
         self.language = None
-        self.estimated_age = None
 
 
 
