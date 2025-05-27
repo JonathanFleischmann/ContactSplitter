@@ -1,6 +1,7 @@
 import tkinter as tk
 from scanner.scanner import Scanner
-from data_structures.scanning_state import Contact
+from data_structures.contact import Contact
+from data_structures.contact import get_empty_contact
 from user_interface.name_scanner_widget import NameScannerWidget
 from user_interface.letter_salutation_widget import LetterSalutationWidget
 from user_interface.edit_name_widget import EditNameWidget
@@ -13,9 +14,10 @@ from data_store.contact_list import ContactList
 
 
 
+
 class UserInterface:
 
-    def start_ui(self, scanner: Scanner, contact_list: ContactList, contact: Contact):
+    def start_ui(self, scanner: Scanner, contact_list: ContactList, contact: Contact = get_empty_contact()):
         self.root = tk.Tk()
         self.root.title("ContactSplitter")
 

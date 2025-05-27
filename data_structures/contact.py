@@ -1,6 +1,7 @@
 from data_structures.token import Token, TokenType
 from data_structures.meta_data import MetaData
 from dataclasses import dataclass
+from data_structures.meta_data import Language
 
 @dataclass
 class Contact:
@@ -43,3 +44,15 @@ class Contact:
             name += token.value + " "
             
         return name.strip()
+    
+def get_empty_contact() -> Contact:
+        meta_data = MetaData()
+        meta_data.language = Language.DE
+        meta_data.gender = "Nicht ermittelbar"
+        meta_data.estimated_age = 0
+
+        contact = Contact(
+            token_list=[],
+            meta_data=meta_data
+        )
+        return contact

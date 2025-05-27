@@ -13,7 +13,7 @@ def main():
 
     contact_list = ContactList()
 
-    UserInterface().start_ui(scanner, contact_list, scanner.get_empty_contact())
+    UserInterface().start_ui(scanner, contact_list)
 
     
 
