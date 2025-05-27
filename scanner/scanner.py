@@ -3,6 +3,7 @@ from scanner.salutation_scanner import SalutationScanner
 from scanner.title_scanner import TitleScanner
 from scanner.name_scanner import NameScanner
 from data_structures.meta_data import Language
+from data_structures.contact import Contact
 import ai_integration  as ai_integration
 
 class Scanner:
@@ -18,7 +19,7 @@ class Scanner:
         self.name_scanner = name_scanner
 
     
-    def scan_string(self, input_string: str) -> ScanningState:
+    def scan_string(self, input_string: str) -> Contact:
 
         input_string = input_string.strip()
         
@@ -46,6 +47,18 @@ class Scanner:
 
         contact = scanner_state.create_contact()
         if contact.meta_data.language is None:
-            contact.meta_data.language = Language.EN
+            contact.meta_data.language = Language.DE
 
+        return contact
+    
+    def get_empty_contact(self) -> Contact:
+        meta_data = MetaData()
+        meta_data.language = Language.DE
+        meta_data.gender = "Divers"
+        meta_data.estimated_age = 0
+
+        contact = Contact(
+            token_list=[],
+            meta_data=meta_data
+        )
         return contact
