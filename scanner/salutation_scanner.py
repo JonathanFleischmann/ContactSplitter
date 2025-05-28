@@ -32,7 +32,7 @@ class SalutationScanner:
         
         scanning_state.update( 
             ' '.join(scanning_state.remaining_name.split(' ')[1:]),
-            None,
+            Token(first_word, TokenType.SALUTATION),
             self.salutations[first_word]["language"],
             self.salutations[first_word]["gender"]
             )
