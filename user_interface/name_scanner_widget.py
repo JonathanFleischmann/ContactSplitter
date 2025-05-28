@@ -23,7 +23,7 @@ class NameScannerWidget:
         """Erstellt das UI für die Namenseingabe und Scan-Optionen."""
         self.name_scanner_frame = Frame(container, "Namen scannen")
         self.name_entry = Entry(self.name_scanner_frame, None, False, True)
-        self.use_ai = Checkbox(self.name_scanner_frame, "unbekanntes Gender mit KI ermitteln", None, False)
+        self.use_ai = Checkbox(self.name_scanner_frame, "unbekanntes Geschlecht mit KI ermitteln", None, False)
         self.use_ai.set_value(True)
         Button(self.name_scanner_frame, "Namen scannen", lambda: self.submit_name(self.name_entry.get_value())).orange()
         self.loading_animation = LoadingAnimation(self.name_scanner_frame)

@@ -41,7 +41,7 @@ class EditOptionsWidget:
         Button(edit_options_frame, "Hinzufügen", lambda: self.add_title()).blue()
 
         # Gender hinzufügen
-        Label(edit_options_frame, "Gender hinzufügen:")
+        Label(edit_options_frame, "Geschlecht hinzufügen:")
         gender_adder_frame = Frame(edit_options_frame.frame, None, True)
         self.gender_adder_entry = Entry(gender_adder_frame)
         Button(edit_options_frame, "Hinzufügen", lambda: self.add_gender()).blue()
@@ -90,19 +90,19 @@ class EditOptionsWidget:
         gender = self.gender_adder_entry.get_value()
 
         if gender == "":
-            CustomInfo("Gender hinzufügen", "Bitte geben Sie ein Gender ein.")
+            CustomInfo("Geschlecht hinzufügen", "Bitte geben Sie ein Gender ein.")
             return
         
         try:
             self.gender_adder.add_gender(gender)
         except ValueError as e:
-            CustomInfo("Gender hinzufügen", translate_message_to_german(str(e)))
+            CustomInfo("Geschlecht hinzufügen", translate_message_to_german(str(e)))
             return
                        
         self.gender_adder_entry.clear()
         self.salutation_adder_gender.add_option(gender)
         self.letter_greeting_adder_gender.add_option(gender)
-        CustomInfo("Gender hinzufügen", f"Das Gender '{gender}' wurde erfolgreich hinzugefügt.")
+        CustomInfo("Geschlecht hinzufügen", f"Das Geschlecht '{gender}' wurde erfolgreich hinzugefügt.")
 
     def add_salutation(self):
         """Fügt eine neue Anrede hinzu."""
