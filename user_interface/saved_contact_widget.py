@@ -19,7 +19,7 @@ class SavedContactWidget:
         self.text = Text(self.frame, True, True)
         self.text.update_text(self.contact.get_name())
         
-        Button(self.frame, "Laden", lambda: self.load_contact(), True, True).blue()
+        Button(self.frame, "Bearbeiten", lambda: self.load_contact(), True, True).blue()
         Button(self.frame, "Löschen", lambda: self.delete_contact(), True, True).red()
         
         

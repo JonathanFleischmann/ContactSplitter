@@ -15,7 +15,7 @@ class Text:
             height=height,
             width=50,
             wrap=tk.WORD,
-            state="normal",
+            state="disabled",
             bg="#f7f7f7",
         )
         if in_one_row:
@@ -26,5 +26,7 @@ class Text:
 
 
     def update_text(self, content: str):
+        self.text.config(state="normal")
         self.text.delete(1.0, tk.END)
         self.text.insert(tk.END, content)
+        self.text.config(state="disabled")

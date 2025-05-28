@@ -12,7 +12,7 @@ from user_interface.ui_elements.frame import Frame
 from user_interface.ui_elements.label import Label
 from user_interface.ui_elements.entry import Entry
 from user_interface.ui_elements.combobox import Combobox
-
+from user_interface.ui_elements.custom_info import CustomInfo
 
 class EditOptionsWidget:
 
@@ -52,36 +52,42 @@ class EditOptionsWidget:
 
     def add_title(self):
         title = self.title_adder_entry.get_value()
-        language = self.title_adder_language.get()
-        if title and language:
-            self.title_adder.add_title(title, Language(language))
-            self.title_adder_entry.clear()
-            self.title_adder_language.set(Language.DE.value)
-        else:
-            print("Bitte Titel und Sprache angeben.")
+        language = self.title_adder_language.get_value()
+
+        if title == "":
+            CustomInfo("Titel hinzufügen", "Bitte geben Sie einen Titel ein.")
+            return
+        
+        self.title_adder.add_title(title, Language(language))
+        self.title_adder_entry.clear()
+        self.title_adder_language.set(Language.DE.value)
 
 
     def add_gender(self):
         gender = self.gender_adder_entry.get_value()
-        if gender:
-            self.gender_adder.add_gender(gender)
-            self.gender_adder_entry.clear()
-            self.clear_container()
-            self.display(self.container)
-        else:
-            print("Bitte Gender angeben.")
+
+        if gender == "":
+            CustomInfo("Gender hinzufügen", "Bitte geben Sie ein Gender ein.")
+            return
+
+        self.gender_adder.add_gender(gender)
+        self.gender_adder_entry.clear()
+        self.clear_container()
+        self.display(self.container)
 
     def add_salutation(self):
         salutation = self.salutation_adder_entry.get_value()
         language = self.salutation_adder_language.get_value()
         gender = self.salutation_adder_gender.get_value()
-        if salutation and language and gender:
-            self.salutation_adder.add_salutation(salutation, Language(language), gender)
-            self.salutation_adder_entry.clear()
-            self.salutation_adder_language.set_value(Language.DE.value)
-            self.salutation_adder_gender.set_value("Nichtbinär")
-        else:
-            print("Bitte Anrede, Sprache und Gender angeben.")
+
+        if salutation == "":
+            CustomInfo("Anrede hinzufügen", "Bitte geben Sie eine Anrede ein.")
+            return
+        
+        self.salutation_adder.add_salutation(salutation, Language(language), gender)
+        self.salutation_adder_entry.clear()
+        self.salutation_adder_language.set_value(Language.DE.value)
+        self.salutation_adder_gender.set_value("Nichtbinär")
 
     def clear_container(self):
         for widget in self.container.winfo_children():

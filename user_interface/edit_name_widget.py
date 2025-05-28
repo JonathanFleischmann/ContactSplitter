@@ -5,11 +5,9 @@ from user_interface.name_component_widget import NameComponentWidget
 from user_interface.ui_elements.button import Button
 from user_interface.ui_elements.frame import Frame
 from user_interface.ui_elements.label import Label
-from user_interface.ui_elements.entry import Entry
 from user_interface.ui_elements.combobox import Combobox
 
 import tkinter as tk
-from tkinter import ttk
 import tkinter.messagebox as messagebox
 
 class EditNameWidget:
@@ -70,7 +68,7 @@ class EditNameWidget:
     def delete_token(self, id: int):
         if id in self.recent_tokens:
             del self.recent_tokens[id]
-
+        self.contact.token_list = list(self.recent_tokens.values())
         self.render()
 
 
@@ -79,6 +77,8 @@ class EditNameWidget:
 
         self.recent_tokens[self.next_id] = token
         self.next_id += 1
+        
+        self.contact.token_list = list(self.recent_tokens.values())
 
         self.render()
 

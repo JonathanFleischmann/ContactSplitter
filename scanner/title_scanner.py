@@ -28,8 +28,8 @@ class TitleScanner:
             raise ValueError(f"Title not found in dictionary.")
 
         scanning_state.update(
-            Token(TokenType.TITLE, longest_found_title), 
             scanning_state.remaining_name.removeprefix(longest_found_title).strip(), 
+            Token(TokenType.TITLE, longest_found_title), 
             self.titles[longest_found_title]
             )
     

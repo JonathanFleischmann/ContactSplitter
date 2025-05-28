@@ -3,8 +3,8 @@ from data_structures.contact import Contact
 from user_interface.ui_elements.button import Button
 from user_interface.ui_elements.frame import Frame
 from user_interface.saved_contact_widget import SavedContactWidget
-import tkinter as tk
-import tkinter.messagebox as messagebox
+from user_interface.ui_elements.custom_info import CustomInfo
+from user_interface.ui_elements.custom_ask_yes_no import CustomAskYesNo
 
 class ContactPersistencyWidget:
     def __init__(self, contact_list: ContactList, recent_contact: Contact, container, on_reload_contact_callback, on_save_contact_callback):
@@ -32,11 +32,14 @@ class ContactPersistencyWidget:
             SavedContactWidget(self.persistency_frame, contact, 
                                 on_load_callback=lambda idx=index: self.load_contact(idx),
                                 on_delete_callback=lambda idx=index: self.delete_contact(idx))
+            
+        Button(self.persistency_frame, text="Persistent laden", callback_method=lambda: self.load_contacts_from_disk()).blue()
+        Button(self.persistency_frame, text="Persistent speichern", callback_method=lambda: self.save_contacts_to_disk()).blue()
 
 
     def save_contact(self):
         if not self.recent_contact or not self.recent_contact.token_list or not self.recent_contact.meta_data or self.recent_contact.token_list == []:
-            messagebox.showinfo("Kontakt speichern", "Es gibt keinen Kontakt zum Speichern. Bitte erfassen Sie zuerst einen Namen.")
+            CustomInfo("Kontakt speichern", "Es gibt keinen Kontakt zum Speichern. Bitte erfassen Sie zuerst einen Namen.")
             return
         self.contact_list.add_contact(self.recent_contact)
         self.render()
@@ -50,6 +53,16 @@ class ContactPersistencyWidget:
 
     
     def delete_contact(self, index: int):
-        if messagebox.askyesno("Kontakt löschen", "Sind Sie sicher, dass Sie diesen Kontakt löschen möchten?"):
+        if CustomAskYesNo("Kontakt löschen", "Sind Sie sicher, dass Sie diesen Kontakt löschen möchten?").result:
             self.contact_list.delete_contact(index)
             self.render()
+
+    
+    def load_contacts_from_disk(self):
+        self.contact_list.load_persistent()
+        self.render()
+        CustomInfo("Kontakt laden", "Kontakte erfolgreich geladen.")
+
+    def save_contacts_to_disk(self):
+        self.contact_list.store_persistent()
+        CustomInfo("Kontakt speichern", "Kontakte erfolgreich gespeichert.")

@@ -26,20 +26,20 @@ class TestScanningState(unittest.TestCase):
         self.assertFalse(self.state.has_salutation())
 
     def test_update_adds_token_and_updates_remaining_name(self):
-        self.state.update(Token(TokenType.FIRST_NAME, "John"), "Doe", Language.EN)
+        self.state.update("Doe", Token(TokenType.FIRST_NAME, "John"), Language.EN)
         self.assertEqual(len(self.state.token_list), 1)
         self.assertEqual(self.state.token_list[0].value, "John")
         self.assertEqual(self.state.remaining_name, "Doe")
         self.assertEqual(self.state.meta_data.language, Language.EN)
 
     def test_update_sets_gender(self):
-        self.state.update(Token(TokenType.FIRST_NAME, "John"), "Doe", gender="Männlich")
+        self.state.update("Doe", Token(TokenType.FIRST_NAME, "John"), gender="Männlich")
         self.assertEqual(self.state.meta_data.gender, "Männlich")
 
     def test_update_multiple_salutations_raises(self):
         self.state.token_list.append(Token(TokenType.SALUTATION, "Mr"))
         with self.assertRaises(ValueError):
-            self.state.update(Token(TokenType.SALUTATION, "Mrs"), "John Doe")
+            self.state.update("John Doe", Token(TokenType.SALUTATION, "Mrs"))
 
     def test_get_first_name(self):
         self.state.token_list.append(Token(TokenType.FIRST_NAME, "John"))
