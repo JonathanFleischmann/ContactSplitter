@@ -30,12 +30,5 @@ class TestNameScanner(unittest.TestCase):
             self.scanner.scan_name(scanning_state)
         self.assertIn("Invalid name", str(context.exception))
 
-    def test_scan_name_invalid(self):
-        scanning_state = get_scanning_state("123")
-        
-        with self.assertRaises(ValueError) as context:
-            self.scanner.scan_name(scanning_state)
-        self.assertIn("Invalid name", str(context.exception))
-
 if __name__ == "__main__":
     unittest.main()
