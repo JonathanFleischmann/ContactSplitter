@@ -46,10 +46,16 @@ class Contact:
     
 
     def get_name(self) -> str:
-        name = ""
 
-        for token in self.token_list:
-            name += token.value + " "
+        previous_token_type = self.token_list[0].type if self.token_list else None
+        name = self.token_list[0].value if self.token_list else ""
+
+        for token in self.token_list[1:]:
+            if token.type == TokenType.LAST_NAME and previous_token_type == TokenType.LAST_NAME:
+                name += "-" + token.value
+            else:
+                name += " " + token.value
+            previous_token_type = token.type
             
         return name.strip()
     
