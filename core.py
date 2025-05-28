@@ -36,8 +36,12 @@ def translate_message_to_german(message: str) -> str:
         "Invalid name.": "Ungültiger Name.",
         "Salutation not found in dictionary.": "Anrede nicht im Wörterbuch gefunden.",
         "Input string is empty": "Eingabezeichenkette ist leer",
-        "Title not found in dictionary.": "Titel nicht im Wörterbuch gefunden"
+        "Title not found in dictionary.": "Titel nicht im Wörterbuch gefunden",
+        "Name contains digits, which is not allowed.": "Der Name enthält Ziffern, was nicht erlaubt ist."
     }
-    print(f"Translating message: {message, translations.get(message)}")
     return translations.get(message, message)
+
+
+def name_contains_digits(name: str) -> bool:
+    return any(char.isdigit() for char in name)
     
