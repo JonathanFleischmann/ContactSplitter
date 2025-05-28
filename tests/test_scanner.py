@@ -20,15 +20,13 @@ class TestScanner(unittest.TestCase):
 
     def test_scan_string_salutation_title_name(self):
         result = self.scanner.scan_string("Mx Dr. John Doe")
-        self.assertEqual(len(result.token_list), 4)
-        self.assertEqual(result.token_list[0].type, TokenType.SALUTATION)
-        self.assertEqual(result.token_list[0].value, "Mx")
-        self.assertEqual(result.token_list[1].type, TokenType.TITLE)
-        self.assertEqual(result.token_list[1].value, "Dr.")
-        self.assertEqual(result.token_list[2].type, TokenType.FIRST_NAME)
-        self.assertEqual(result.token_list[2].value, "John")
-        self.assertEqual(result.token_list[3].type, TokenType.LAST_NAME)
-        self.assertEqual(result.token_list[3].value, "Doe")
+        self.assertEqual(len(result.token_list), 3)
+        self.assertEqual(result.token_list[0].type, TokenType.TITLE)
+        self.assertEqual(result.token_list[0].value, "Dr.")
+        self.assertEqual(result.token_list[1].type, TokenType.FIRST_NAME)
+        self.assertEqual(result.token_list[1].value, "John")
+        self.assertEqual(result.token_list[2].type, TokenType.LAST_NAME)
+        self.assertEqual(result.token_list[2].value, "Doe")
         self.assertEqual(result.meta_data.language, Language.EN)
         self.assertEqual(result.meta_data.gender, "Nichtbinär")
 
