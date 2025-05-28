@@ -18,7 +18,7 @@ class TestLetterGreetingAdder(unittest.TestCase):
     def test_add_new_greeting(self):
         self.adder.add_salutation("Test Greeting", Language.EN, "Männlich", True)
         self.assertIn("Test Greeting", self.generator.greetings)
-        self.assertEqual(self.generator.greetings["Test Greeting"]["language"], Language.EN)
+        self.assertEqual(self.generator.greetings["Test Greeting"]["lang"], Language.EN)
         self.assertEqual(self.generator.greetings["Test Greeting"]["gender"], "Männlich")
         self.assertTrue(self.generator.include_name["Test Greeting"])
 
