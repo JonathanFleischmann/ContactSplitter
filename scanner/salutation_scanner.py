@@ -30,9 +30,9 @@ class SalutationScanner:
         if first_word not in self.salutations:
             raise ValueError(f"Salutation '{first_word}' not found in dictionary.")
         
-        scanning_state.update(
-            Token(TokenType.SALUTATION, first_word), 
+        scanning_state.update( 
             ' '.join(scanning_state.remaining_name.split(' ')[1:]),
+            None,
             self.salutations[first_word]["language"],
             self.salutations[first_word]["gender"]
             )

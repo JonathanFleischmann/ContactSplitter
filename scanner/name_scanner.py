@@ -46,7 +46,7 @@ class NameScanner:
         language: Language | None = self.nobility_particles.get(nobility_particle)
 
         scanning_state.update(
-            Token(token_type, last_name),
             rest,
+            Token(token_type, last_name),
             language
         )
