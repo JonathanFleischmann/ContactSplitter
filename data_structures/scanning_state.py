@@ -33,18 +33,19 @@ class ScanningState:
         return contact
     
     def update(self, remaining_name: str, token: Token = None, language: Language = None, gender: str = None) -> None:
-
-        if token is not None:
-            if token.type == TokenType.SALUTATION and self.has_salutation():
-                raise ValueError(f"Multiple salutations found")
-            self.token_list.append(token)
             
         self.remaining_name = remaining_name
+
         if gender is not None:
             self.meta_data.gender = gender
 
-        if language is not None and (self.meta_data.language is None or token.type == TokenType.SALUTATION):
+        if language is not None and (self.meta_data.language is None or (token and token.type == TokenType.SALUTATION)):
             self.meta_data.language = language
+
+        if token:
+            if token.type == TokenType.SALUTATION and self.has_salutation():
+                raise ValueError(f"Multiple salutations found")
+            self.token_list.append(token)
 
     def get_first_name(self) -> str:
         first_names = []
