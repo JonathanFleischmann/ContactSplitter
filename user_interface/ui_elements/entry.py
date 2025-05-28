@@ -2,13 +2,14 @@ import tkinter as tk
 from user_interface.ui_elements.frame import Frame
 
 class Entry:
-    def __init__(self, parent: Frame, on_key_release_callback=None, in_one_row=False):
+    def __init__(self, parent: Frame, on_key_release_callback=None, in_one_row=False, long_entry=False):
         self.parent = parent
         self.on_key_release_callback = on_key_release_callback
+        width = 60 if long_entry else 30
 
         self.entry = tk.Entry(
             self.parent.frame,
-            width=30
+            width=width,
         )
         if in_one_row:
             self.entry.pack(side=tk.LEFT, padx=5, pady=5)

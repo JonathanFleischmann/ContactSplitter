@@ -14,7 +14,7 @@ class LoadingAnimation:
             return
         self.running = True
         if not self.loading_text_output:
-            self.loading_text_output = tk.Label(self.container, text="Laden", width=28, anchor="w")
+            self.loading_text_output = tk.Label(self.container, text="Laden", width=52, anchor="w")
             self.loading_text_output.pack(pady=0)
         self.phase = 0
         self.dots_number = 0
