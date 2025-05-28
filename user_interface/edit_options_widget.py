@@ -33,7 +33,7 @@ class EditOptionsWidget:
 
         self.title_adder_frame = Frame(edit_options_frame.frame)
         Label(self.title_adder_frame, "Titel hinzufügen:")
-        self.title_adder_entry = Entry(self.title_adder_frame, lambda e: self.add_title())
+        self.title_adder_entry = Entry(self.title_adder_frame)
         self.title_adder_language = Combobox(self.title_adder_frame, [l.value for l in Language])
         self.title_adder_language.set_value(Language.DE.value)
         Button(self.title_adder_frame, "Hinzufügen", lambda: self.add_title()).blue()
@@ -74,7 +74,9 @@ class EditOptionsWidget:
         
         self.title_adder.add_title(title, Language(language))
         self.title_adder_entry.clear()
-        self.title_adder_language.set(Language.DE.value)
+        self.title_adder_language.set_value(Language.DE.value)
+
+        CustomInfo("Titel hinzufügen", f"Der Titel '{title}' wurde erfolgreich hinzugefügt.")
 
 
     def add_gender(self):
@@ -88,6 +90,9 @@ class EditOptionsWidget:
         self.gender_adder_entry.clear()
         self.clear_container()
         self.display(self.container)
+
+        CustomInfo("Gender hinzufügen", f"Der Titel '{gender}' wurde erfolgreich hinzugefügt.")
+                   
 
     def add_salutation(self):
         salutation = self.salutation_adder_entry.get_value()
@@ -103,6 +108,8 @@ class EditOptionsWidget:
         self.salutation_adder_language.set_value(Language.DE.value)
         self.salutation_adder_gender.set_value("Nichtbinär")
 
+        CustomInfo("Anrede hinzufügen", f"Die Anrede '{salutation}' wurde erfolgreich hinzugefügt.")
+
 
     def add_letter_greeting(self):
         letter_greeting = self.letter_greeting_adder_entry.get_value()
@@ -116,6 +123,14 @@ class EditOptionsWidget:
         append_last_name = True if append_last_name == "Nachnamen anhängen" else False
 
         self.letter_greeting_adder.add_salutation(letter_greeting, Language(language), gender, append_last_name)
+
+        self.letter_greeting_adder_entry.clear()
+        self.letter_greeting_adder_language.set_value(Language.DE.value)
+        self.letter_greeting_adder_gender.set_value("Nichtbinär")
+        self.letter_greeting_adder_append_last_name.set_value("Nachnamen anhängen")
+
+
+        CustomInfo("Briefanrede hinzufügen", f"Die Briefanrede '{letter_greeting}' wurde erfolgreich hinzugefügt.")
 
 
     def clear_container(self):
