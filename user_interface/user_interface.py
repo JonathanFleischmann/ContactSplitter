@@ -1,5 +1,6 @@
 import tkinter as tk
 from scanner.scanner import Scanner
+from generators.letter_greeting_generator import LetterGreetingGenerator
 from data_structures.contact import Contact, get_empty_contact
 from data_structures.contact import get_empty_contact
 from user_interface.name_scanner_widget import NameScannerWidget
@@ -17,11 +18,12 @@ from data_store.contact_list import ContactList
 
 class UserInterface:
 
-    def start_ui(self, scanner: Scanner, contact_list: ContactList, contact: Contact = get_empty_contact()):
+    def start_ui(self, scanner: Scanner, letter_greeting_generator: LetterGreetingGenerator, contact_list: ContactList, contact: Contact = get_empty_contact()):
         self.root = tk.Tk()
         self.root.title("ContactSplitter")
 
         self.scanner: Scanner = scanner
+        self.letter_greeting_generator: LetterGreetingGenerator = letter_greeting_generator
         self.contact_list: ContactList = contact_list
         self.title_scanner: TitleScanner = scanner.title_scanner
         self.salutation_scanner: SalutationScanner = scanner.salutation_scanner
@@ -76,7 +78,7 @@ class UserInterface:
     def switch_to_briefanrede(self):
         self.clear_dynamic_frame()
 
-        LetterSalutationWidget(self.contact, self.dynamic_frame)
+        LetterSalutationWidget(self.contact, self.dynamic_frame, self.letter_greeting_generator)
 
     def switch_to_edit_name_and_data(self):
         self.clear_dynamic_frame()
@@ -97,7 +99,7 @@ class UserInterface:
     def switch_to_edit_options(self):
         self.clear_dynamic_frame()
 
-        EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner)
+        EditOptionsWidget(self.dynamic_frame, self.title_scanner, self.salutation_scanner, self.letter_greeting_generator)
 
     def update_name(self, contact: Contact):
         self.contact = contact

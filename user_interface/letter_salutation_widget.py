@@ -9,9 +9,9 @@ from user_interface.ui_elements.text import Text
 from user_interface.ui_elements.combobox import Combobox
 
 class LetterSalutationWidget:
-    def __init__(self, contact: Contact, container: tk.Frame):
+    def __init__(self, contact: Contact, container: tk.Frame, letter_greeting_generator: LetterGreetingGenerator):
         self.contact = contact
-        self.letter_greeting_generator = LetterGreetingGenerator()
+        self.letter_greeting_generator: LetterGreetingGenerator = letter_greeting_generator
 
         self.display(container)
 
