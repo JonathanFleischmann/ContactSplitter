@@ -1,7 +1,6 @@
 import unittest
 from persistency.title_adder import TitleAdder
 from scanner.title_scanner import TitleScanner
-from data_structures.meta_data import Language
 
 class TestTitleAdder(unittest.TestCase):
 

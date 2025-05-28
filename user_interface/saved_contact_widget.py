@@ -1,4 +1,3 @@
-import tkinter as tk
 from user_interface.ui_elements.frame import Frame
 from user_interface.ui_elements.text import Text
 from user_interface.ui_elements.button import Button

@@ -1,7 +1,6 @@
 import unittest
 from scanner.salutation_scanner import SalutationScanner
 from data_structures.scanning_state import ScanningState
-from data_structures.token import TokenType
 from data_structures.meta_data import Language, MetaData
 
 def get_scanning_state(remaining_name):

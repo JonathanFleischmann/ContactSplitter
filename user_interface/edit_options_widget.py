@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from data_structures.meta_data import Language, genders
 from persistency.gender_adder import GenderAdder
 from persistency.salutations_adder import SalutationAdder

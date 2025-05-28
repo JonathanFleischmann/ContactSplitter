@@ -1,6 +1,6 @@
 import json
 from data_structures.token import Token, TokenType
-from data_structures.meta_data import Language, genders, convert_string_to_language
+from data_structures.meta_data import convert_string_to_language
 from data_structures.scanning_state import ScanningState
 
 class SalutationScanner:

@@ -1,9 +1,8 @@
 import json
-import os
 
 from data_structures.contact import Contact
 from data_structures.meta_data import Language, convert_string_to_language
-from data_structures.token import Token, TokenType
+from data_structures.token import TokenType
 
 class LetterGreetingGenerator:
     """

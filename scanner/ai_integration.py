@@ -1,5 +1,4 @@
 from openai import OpenAI
-import os
 
 def get_api_key():
     # get the API key from a file

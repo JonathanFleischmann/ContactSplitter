@@ -1,4 +1,3 @@
-from data_structures.meta_data import Language
 from scanner.title_scanner import TitleScanner
 
 class TitleAdder:

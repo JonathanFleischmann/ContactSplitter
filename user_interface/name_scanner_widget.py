@@ -1,4 +1,3 @@
-import tkinter as tk
 import threading
 import tkinter.messagebox as messagebox
 from data_structures.contact import Contact
