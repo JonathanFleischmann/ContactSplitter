@@ -39,6 +39,12 @@ class NameScannerWidget:
 
     
     def _scan_and_finish(self, name: str):
+        try:
+            self.contact = self.scanner.scan_string(name)
+        except Exception as e:
+            self.loading_animation.stop()
+            messagebox.showerror("Fehler", f"Der Name konnte nicht gescannt werden: {e}")
+            return
         self.contact = self.scanner.scan_string(name)
         self.name_scanner_frame.frame.after(0, self._on_scan_finished)
 
