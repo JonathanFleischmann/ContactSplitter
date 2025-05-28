@@ -36,8 +36,12 @@ def translate_message_to_german(message: str) -> str:
         "Invalid name.": "Ungültiger Name.",
         "Salutation not found in dictionary.": "Anrede nicht im Wörterbuch gefunden.",
         "Input string is empty": "Eingabezeichenkette ist leer",
+        "No empty string allowed.": "Keine leere Zeichenkette erlaubt.",
         "Title not found in dictionary.": "Titel nicht im Wörterbuch gefunden",
-        "Name contains digits, which is not allowed.": "Der Name enthält Ziffern, was nicht erlaubt ist."
+        "Name contains digits, which is not allowed.": "Der Name enthält Ziffern, was nicht erlaubt ist.",
+        "Gender is already known.": "Geschlecht ist bereits bekannt.",
+        "Salutation already exists in dictionary.": "Anrede existiert bereits im Wörterbuch.",
+        "Title already exists in dictionary.": "Titel existiert bereits im Wörterbuch."
     }
     return translations.get(message, message)
 

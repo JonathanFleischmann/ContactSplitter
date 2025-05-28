@@ -10,7 +10,7 @@ class TitleAdder:
 
     def add_title(self, title: str, language: Language) -> None:
         if title in self.title_scanner.titles:
-            raise ValueError(f"Salutation '{title}' already exists in dictionary.")
+            raise ValueError(f"Title already exists in dictionary.")
         if title == "":
             raise ValueError(f"No empty string allowed.")
         

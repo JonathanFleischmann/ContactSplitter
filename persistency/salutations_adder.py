@@ -11,7 +11,7 @@ class SalutationAdder:
 
     def add_salutation(self, salutation: str, language: Language, gender: str) -> None:
         if salutation in self.salutation_scanner.salutations:
-            raise ValueError(f"Salutation '{salutation}' already exists in dictionary.")
+            raise ValueError(f"Salutation already exists in dictionary.")
         if gender not in genders:
             raise ValueError(f"Unknown gender:'{gender}'")
         if salutation == "":

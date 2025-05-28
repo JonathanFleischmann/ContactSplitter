@@ -15,6 +15,7 @@ from user_interface.ui_elements.label import Label
 from user_interface.ui_elements.entry import Entry
 from user_interface.ui_elements.combobox import Combobox
 from user_interface.ui_elements.custom_info import CustomInfo
+from core import translate_message_to_german
 
 class EditOptionsWidget:
 
@@ -72,7 +73,12 @@ class EditOptionsWidget:
             CustomInfo("Titel hinzufügen", "Bitte geben Sie einen Titel ein.")
             return
         
-        self.title_adder.add_title(title, Language(language))
+        try: 
+            self.title_adder.add_title(title, Language(language))
+        except ValueError as e:
+            CustomInfo("Titel hinzufügen", translate_message_to_german(str(e)))
+            return
+
         self.title_adder_entry.clear()
         self.title_adder_language.set_value(Language.DE.value)
 
@@ -85,8 +91,13 @@ class EditOptionsWidget:
         if gender == "":
             CustomInfo("Gender hinzufügen", "Bitte geben Sie ein Gender ein.")
             return
-
-        self.gender_adder.add_gender(gender)
+        
+        try:
+            self.gender_adder.add_gender(gender)
+        except ValueError as e:
+            CustomInfo("Gender hinzufügen", translate_message_to_german(str(e)))
+            return
+                       
         self.gender_adder_entry.clear()
         self.salutation_adder_gender.add_option(gender)
         self.letter_greeting_adder_gender.add_option(gender)
@@ -103,7 +114,12 @@ class EditOptionsWidget:
             CustomInfo("Anrede hinzufügen", "Bitte geben Sie eine Anrede ein.")
             return
         
-        self.salutation_adder.add_salutation(salutation, Language(language), gender)
+        try:
+            self.salutation_adder.add_salutation(salutation, Language(language), gender)
+        except ValueError as e:
+            CustomInfo("Anrede hinzufügen", translate_message_to_german(str(e)))
+            return
+        
         self.salutation_adder_entry.clear()
         self.salutation_adder_language.set_value(Language.DE.value)
         self.salutation_adder_gender.set_value("Nichtbinär")
@@ -116,13 +132,18 @@ class EditOptionsWidget:
         language = self.letter_greeting_adder_language.get_value()
         gender = self.letter_greeting_adder_gender.get_value()
         append_last_name = self.letter_greeting_adder_append_last_name.get_value()
+
         if letter_greeting == "":
             CustomInfo("Briefanrede hinzufügen", "Bitte geben Sie eine Briefanrede ein.")
             return
         
         append_last_name = True if append_last_name == "Nachnamen anhängen" else False
 
-        self.letter_greeting_adder.add_salutation(letter_greeting, Language(language), gender, append_last_name)
+        try:
+            self.letter_greeting_adder.add_salutation(letter_greeting, Language(language), gender, append_last_name)
+        except ValueError as e:
+            CustomInfo("Briefanrede hinzufügen", translate_message_to_german(str(e)))
+            return
 
         self.letter_greeting_adder_entry.clear()
         self.letter_greeting_adder_language.set_value(Language.DE.value)
