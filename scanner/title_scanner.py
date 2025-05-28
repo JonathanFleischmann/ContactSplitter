@@ -25,7 +25,7 @@ class TitleScanner:
             scanning_state.remaining_name, self.titles.keys())
         
         if longest_found_title is None:
-            raise ValueError(f"Title not found in dictionary.")
+            raise ValueError("Title not found in dictionary.")
 
         scanning_state.update(
             scanning_state.remaining_name.removeprefix(longest_found_title).strip(), 

@@ -26,4 +26,18 @@ def flip_names_on_comma_between(name: str) -> str:
             parts[i], parts[i + 1] = parts[i + 1], parts[i].rstrip(',')
             return ' '.join(parts)
     return name.replace(',', '').strip()
+
+
+def translate_message_to_german(message: str) -> str:
+    translations = {
+        "Multiple salutations found": "Mehrere Anreden gefunden",
+        "Invalid name: No name after prefix.": "Kein Name nach dem Präfix gefunden.",
+        "Invalid name: Name after prefix isn't a capitalized character.": "Der Name nach dem Präfix startet nicht mit einem Großbuchstaben.",
+        "Invalid name.": "Ungültiger Name.",
+        "Salutation not found in dictionary.": "Anrede nicht im Wörterbuch gefunden.",
+        "Input string is empty": "Eingabezeichenkette ist leer",
+        "Title not found in dictionary.": "Titel nicht im Wörterbuch gefunden"
+    }
+    print(f"Translating message: {message, translations.get(message)}")
+    return translations.get(message, message)
     

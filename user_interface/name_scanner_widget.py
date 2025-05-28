@@ -6,6 +6,7 @@ from user_interface.ui_elements.loading_animation import LoadingAnimation
 from user_interface.ui_elements.frame import Frame
 from user_interface.ui_elements.button import Button
 from user_interface.ui_elements.entry import Entry
+from core import translate_message_to_german
 
 class NameScannerWidget:
     def __init__(self, container, scanner, on_new_contact_callback):
@@ -43,7 +44,7 @@ class NameScannerWidget:
             self.contact = self.scanner.scan_string(name)
         except Exception as e:
             self.loading_animation.stop()
-            messagebox.showerror("Fehler", f"Der Name konnte nicht gescannt werden: {e}")
+            messagebox.showerror("Fehler", f"Der Name konnte nicht gescannt werden: {translate_message_to_german(str(e))}")
             return
         self.contact = self.scanner.scan_string(name)
         self.name_scanner_frame.frame.after(0, self._on_scan_finished)

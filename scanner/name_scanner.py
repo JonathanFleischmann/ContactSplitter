@@ -22,9 +22,10 @@ class NameScanner:
     def is_valid_name_after_prefix(self, remaining_name: str, prefix: str) -> bool:
         name = remaining_name.removeprefix(prefix).strip()
         if name == "":
-            raise ValueError(f"Invalid name: No name after prefix '{prefix}' found in '{remaining_name}'.")
-        if not name.split(' ')[0][0].isupper():
-            raise ValueError(f"Invalid name: Name after prefix '{prefix}' isn't a capitalized character: '{name}.'")
+            if prefix != "":
+                raise ValueError(f"Invalid name: No name after prefix.")
+            else:
+                raise ValueError(f"Invalid name.")
         return True
 
 
