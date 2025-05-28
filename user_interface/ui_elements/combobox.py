@@ -30,3 +30,8 @@ class Combobox:
             self.combobox.set(value)
         else:
             raise ValueError(f"Value '{value}' not in options")
+        
+    def add_option(self, option: str):
+        if option not in self.options:
+            self.options.append(option)
+            self.combobox['values'] = self.options
