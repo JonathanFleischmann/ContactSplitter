@@ -28,7 +28,7 @@ class TestSalutationScanner(unittest.TestCase):
         scanning_state = get_scanning_state("Dxr John Doe")
         with self.assertRaises(ValueError) as context:
             self.scanner.scan_salutation(scanning_state)
-        self.assertIn("Salutation 'Dxr' not found", str(context.exception))
+        self.assertIn("Salutation not found in dictionary", str(context.exception))
 
     def test_scan_salutation_multiple_salutations(self):
         scanning_state = get_scanning_state("Mr Mrs John Doe")
