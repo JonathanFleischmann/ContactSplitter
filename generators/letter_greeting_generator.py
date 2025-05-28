@@ -55,7 +55,7 @@ class LetterGreetingGenerator:
             
 
         for greeting, data in self.greetings.items():
-            if convert_string_to_language(data["lang"]) == lang and gender == data["gender"] and name_available == self.include_name.get(greeting, True):
+            if convert_string_to_language(data["lang"]) == lang and gender == data["gender"] and (name_available or not self.include_name.get(greeting, True)):
                 return greeting, self.include_name.get(greeting, True)
         
         # Fallback to gender-neutral greeting

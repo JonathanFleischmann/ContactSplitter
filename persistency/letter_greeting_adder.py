@@ -15,7 +15,7 @@ class LetterGreetingAdder:
             raise ValueError(f"No empty string allowed.")
         
         self.letter_greeting_generator.greetings[greeting] = {
-            "language": language,
+            "lang": language,
             "gender": gender
         }
         self.letter_greeting_generator.include_name[greeting] = include_name
