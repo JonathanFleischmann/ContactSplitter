@@ -20,7 +20,6 @@ class TestScanner(unittest.TestCase):
 
     def test_scan_string_salutation_title_name(self):
         result = self.scanner.scan_string("Mx Dr. John Doe")
-        print(result)
         self.assertEqual(len(result.token_list), 3)
         self.assertEqual(result.token_list[0].type, TokenType.TITLE)
         self.assertEqual(result.token_list[0].value, "Dr.")
