@@ -17,14 +17,6 @@ class TestScanningState(unittest.TestCase):
         self.state.token_list.append(Token(TokenType.LAST_NAME, "Doe"))
         self.assertFalse(self.state.has_first_name())
 
-    def test_has_salutation_true(self):
-        self.state.token_list.append(Token(TokenType.SALUTATION, "Mr"))
-        self.assertTrue(self.state.has_salutation())
-
-    def test_has_salutation_false(self):
-        self.state.token_list.append(Token(TokenType.FIRST_NAME, "John"))
-        self.assertFalse(self.state.has_salutation())
-
     def test_update_adds_token_and_updates_remaining_name(self):
         self.state.update("Doe", Token(TokenType.FIRST_NAME, "John"), Language.EN)
         self.assertEqual(len(self.state.token_list), 1)

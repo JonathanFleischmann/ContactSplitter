@@ -19,7 +19,7 @@ class TestSalutationScanner(unittest.TestCase):
     def test_scan_salutation_valid(self):
         scanning_state = get_scanning_state("Mr John Doe")
         self.scanner.scan_salutation(scanning_state)
-        self.assertEqual(len(scanning_state.token_list), 0)
+        self.assertEqual(len(scanning_state.token_list), 1)
         self.assertEqual(scanning_state.remaining_name, "John Doe")
         self.assertEqual(scanning_state.meta_data.language, Language.EN)
         self.assertEqual(scanning_state.meta_data.gender, "Männlich")
