@@ -103,8 +103,3 @@ def get_gender_for_name(name: str) -> str:
         return "Divers"
     return gender
 
-
-def get_age_for_name(name: str) -> str:
-   
-    return 5
-
