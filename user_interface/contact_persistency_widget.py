@@ -59,10 +59,14 @@ class ContactPersistencyWidget:
 
     
     def load_contacts_from_disk(self):
-        self.contact_list.load_persistent()
-        self.render()
-        CustomInfo("Kontakt laden", "Kontakte erfolgreich geladen.")
+        if self.contact_list.load_persistent():
+            self.render()
+            CustomInfo("Kontakt laden", "Kontakte erfolgreich geladen.")
+        else:
+            CustomInfo("Kontakt laden", "Keine gespeicherten Kontakte gefunden.")
 
     def save_contacts_to_disk(self):
-        self.contact_list.store_persistent()
-        CustomInfo("Kontakt speichern", "Kontakte erfolgreich gespeichert.")
+        if self.contact_list.store_persistent():
+            CustomInfo("Kontakt speichern", "Kontakte erfolgreich gespeichert.")
+        else:
+            CustomInfo("Kontakt speichern", "Kontakte in der Datenbank wurden geleert.")

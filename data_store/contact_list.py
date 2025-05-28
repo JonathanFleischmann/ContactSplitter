@@ -41,15 +41,23 @@ class ContactList:
         else:
             raise IndexError("Index out of range.")
         
-    def store_persistent(self):
+    def store_persistent(self) -> bool:
         """
         Store the contact list persistently in the database.
         """
         self.database.save_contacts(self.contacts)
+        if not self.contacts or len(self.contacts) == 0:
+            return False
+        return True
 
-    def load_persistent(self):
+    def load_persistent(self) -> bool:
         """
         Load the contact list from the database.
         """
-        self.contacts = self.database.load_contacts()
+        contacts = self.database.load_contacts()
+        if contacts is None or len(contacts) == 0:
+            return False
+        self.contacts = contacts
+        return True
+
 
