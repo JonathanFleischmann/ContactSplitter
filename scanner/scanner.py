@@ -25,8 +25,9 @@ class Scanner:
         if name_contains_digits(input_string):
             raise ValueError("Name contains digits, which is not allowed.")
 
-        # Flip names on comma if necessary
         input_string = flip_names_on_comma_between(input_string)
+
+        input_string = input_string.replace('-', ' ')
         
         if not input_string or input_string.strip() == '':
             raise ValueError("Input string is empty")
