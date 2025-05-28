@@ -18,6 +18,17 @@ class ScanningState:
             
         return False
     
+    def has_second_first_name(self) -> bool:
+        first_names = 0
+        
+        for token in self.token_list:
+            if token.type == TokenType.FIRST_NAME:
+                first_names += 1
+                if first_names > 1:
+                    return True
+        
+        return False
+    
     def create_contact(self) -> Contact:
         """
         Create a contact object this.
