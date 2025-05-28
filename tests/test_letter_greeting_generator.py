@@ -35,22 +35,22 @@ class TestLetterGreetingGenerator(unittest.TestCase):
         self.assertTrue(greeting.endswith(","))
 
     def test_generate_greeting_fallback(self):
-        contact = self.make_contact(gender="Divers", lang=Language.DE, tokens=[])
+        contact = self.make_contact(gender="Divers", lang=Language.DE, tokens=None)
         greeting = self.generator.generate(contact)
         self.assertIn("Hallo", greeting)
         self.assertTrue(greeting.endswith(","))
 
     def test_get_greeting_exact_match(self):
         contact = self.make_contact(gender="Weiblich", lang=Language.DE)
-        greeting, include_name = self.generator.get_greeting(contact, Language.DE)
+        greeting, include_name = self.generator.get_greeting(contact, Language.DE, name_available=True)
         self.assertEqual(greeting, "Sehr geehrte Frau")
         self.assertTrue(include_name)
 
     def test_get_greeting_gender_neutral(self):
         contact = self.make_contact(gender="", lang=Language.FR)
-        greeting, include_name = self.generator.get_greeting(contact, Language.FR)
+        greeting, include_name = self.generator.get_greeting(contact, Language.FR, name_available=False)
         self.assertEqual(greeting, "Messieursdames")
-        self.assertTrue(include_name)
+        self.assertFalse(include_name)
 
 if __name__ == "__main__":
     unittest.main()
