@@ -10,42 +10,37 @@ from user_interface.ui_elements.checkbox import Checkbox
 from core import translate_message_to_german
 
 class NameScannerWidget:
+    """
+    Widget zum Scannen eines Namens und Ermitteln der Kontaktinformationen.
+    """
+
     def __init__(self, container, scanner, on_new_contact_callback):
         self.scanner = scanner
         self.on_new_contact_callback = on_new_contact_callback
-        
         self.contact: Contact = None
-        
         self.display(container)
 
-
     def display(self, container):
+        """Erstellt das UI für die Namenseingabe und Scan-Optionen."""
         self.name_scanner_frame = Frame(container, "Namen scannen")
-
         self.name_entry = Entry(self.name_scanner_frame, None, False, True)
-
-        self.use_ai = Checkbox(self.name_scanner_frame, "Gender mit KI ermitteln", None, False)
+        self.use_ai = Checkbox(self.name_scanner_frame, "unbekanntes Gender mit KI ermitteln", None, False)
         self.use_ai.set_value(True)
-
         Button(self.name_scanner_frame, "Namen scannen", lambda: self.submit_name(self.name_entry.get_value())).orange()
-
         self.loading_animation = LoadingAnimation(self.name_scanner_frame)
 
-
-
-
     def submit_name(self, name: str):
+        """Startet den Scan-Prozess für den eingegebenen Namen."""
         if not name or name.isspace():
             messagebox.showerror("Fehler", "Bitte geben Sie einen gültigen Namen ein.")
             return
         use_ai = self.use_ai.get_value()
-        # Name scannen und Meta-Daten aktualisieren
         self.loading_animation.start()
         self.thread = threading.Thread(target=lambda: self._scan_and_finish(name, use_ai), daemon=True)
         self.thread.start()
 
-    
     def _scan_and_finish(self, name: str, use_ai: bool = False):
+        """Führt den Scan im Hintergrund aus und behandelt Fehler."""
         try:
             self.contact = self.scanner.scan_string(name, use_ai)
         except Exception as e:
@@ -55,6 +50,7 @@ class NameScannerWidget:
         self.name_scanner_frame.frame.after(0, self._on_scan_finished)
 
     def _on_scan_finished(self):
+        """Beendet die Animation und gibt das Ergebnis zurück."""
         self.loading_animation.stop()
         self.on_new_contact_callback(self.contact)
         self.name_entry.set_value('')

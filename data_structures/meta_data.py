@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-
-
+# Set mit unterstützten Gender-Optionen
 genders = {
     "Männlich",
     "Weiblich",
@@ -12,7 +11,6 @@ genders = {
     "Genderfluid",
     "Nicht ermittelbar"
 }
-
 
 class Language(Enum):
     EN = "Englisch"
@@ -26,8 +24,6 @@ class Language(Enum):
     RO = "Rumänisch"
     SR = "Serbisch"
 
-
-
 @dataclass
 class MetaData:
     gender: str | None
@@ -37,15 +33,13 @@ class MetaData:
         self.gender = None
         self.language = None
 
-
-
 def convert_string_to_language(language: str) -> Language:
+    """
+    Wandelt einen String in das passende Language-Enum um.
+    """
     if isinstance(language, Language):
         return language
     try:
         return Language[language.upper()]
     except KeyError:
         raise ValueError(f"Invalid language: {language}")
-
-
-

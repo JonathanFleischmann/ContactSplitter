@@ -2,17 +2,20 @@ from data_structures.meta_data import Language
 from scanner.title_scanner import TitleScanner
 
 class TitleAdder:
-
-    title_scanner: TitleScanner
+    """
+    Klasse zum Hinzufügen neuer Titel zum Titel-Wörterbuch.
+    """
 
     def __init__(self, title_scanner: TitleScanner):
         self.title_scanner = title_scanner
 
     def add_title(self, title: str, language: Language) -> None:
+        """
+        Fügt einen neuen Titel mit zugehöriger Sprache hinzu.
+        Löst eine Exception aus, wenn der Titel leer ist oder bereits existiert.
+        """
         if title in self.title_scanner.titles:
-            raise ValueError(f"Title already exists in dictionary.")
+            raise ValueError("Title already exists in dictionary.")
         if title == "":
-            raise ValueError(f"No empty string allowed.")
-        
+            raise ValueError("No empty string allowed.")
         self.title_scanner.titles[title] = language
-        

@@ -2,44 +2,54 @@ import tkinter as tk
 from user_interface.ui_elements.frame import Frame
 
 class LoadingAnimation:
+    """
+    Zeigt eine animierte Ladeanzeige mit Punkten ("Laden...", "Laden..", etc.) an.
+    """
+
     def __init__(self, parent: Frame):
+        # Container-Frame für das Label
         self.container = parent.frame
         self.running = False
-        self.loading_text_output = None
-        self.phase = 0
-        self.dots_number = 0
+        self.label = None
+        self.dots = 0
+        self.increasing = True
 
     def start(self):
+        """Startet die Ladeanimation."""
         if self.running:
             return
         self.running = True
-        if not self.loading_text_output:
-            self.loading_text_output = tk.Label(self.container, text="Laden", width=52, anchor="w")
-            self.loading_text_output.pack(pady=0)
-        self.phase = 0
-        self.dots_number = 0
+        if not self.label:
+            self.label = tk.Label(self.container, text="Laden", width=52, anchor="w")
+            self.label.pack(pady=0)
+        self.dots = 0
+        self.increasing = True
         self._animate()
 
     def stop(self):
+        """Stoppt die Ladeanimation und entfernt das Label."""
         self.running = False
-        if self.loading_text_output:
-            self.loading_text_output.destroy()
-            self.loading_text_output = None
+        if self.label:
+            self.label.destroy()
+            self.label = None
 
     def _animate(self):
+        """Interne Methode zur Animation der Punkte."""
         if not self.running:
             return
         max_dots = 4
-        text = "Laden" + "." * self.dots_number
-        self.loading_text_output.config(text=text)
-        if self.phase == 0:
-            if self.dots_number < max_dots:
-                self.dots_number += 1
+        # Text aktualisieren
+        self.label.config(text="Laden" + "." * self.dots)
+        # Punktezahl erhöhen oder verringern
+        if self.increasing:
+            if self.dots < max_dots:
+                self.dots += 1
             else:
-                self.phase = 1
-        elif self.phase == 1:
-            if self.dots_number > 0:
-                self.dots_number -= 1
+                self.increasing = False
+        else:
+            if self.dots > 0:
+                self.dots -= 1
             else:
-                self.phase = 0
-        self.loading_text_output.after(100, self._animate)
+                self.increasing = True
+        # Nächsten Animationsschritt planen
+        self.label.after(100, self._animate)

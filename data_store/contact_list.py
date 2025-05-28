@@ -4,7 +4,7 @@ from data_store.database import Database
 
 class ContactList:
     """
-    A class to represent a list of contacts.
+    Klasse zur Verwaltung einer Kontaktliste mit Persistenz.
     """
 
     def __init__(self):
@@ -12,52 +12,36 @@ class ContactList:
         self.database = Database()
 
     def add_contact(self, contact: Contact) -> None:
-        """
-        Add a contact to the list.
-        """
+        """Fügt einen Kontakt zur Liste hinzu."""
         self.contacts.append(contact)
 
     def get_contacts(self) -> List[Contact]:
-        """
-        Get the list of contacts.
-        """
+        """Gibt die Liste der Kontakte zurück."""
         return self.contacts
     
     def change_contact(self, index: int, contact: Contact) -> None:
-        """
-        Change a contact in the list.
-        """
+        """Ändert einen Kontakt an gegebener Position."""
         if 0 <= index < len(self.contacts):
             self.contacts[index] = contact
         else:
             raise IndexError("Index out of range.")
         
     def delete_contact(self, index: int) -> None:
-        """
-        Delete a contact from the list.
-        """
+        """Löscht einen Kontakt aus der Liste."""
         if 0 <= index < len(self.contacts):
             del self.contacts[index]
         else:
             raise IndexError("Index out of range.")
         
     def store_persistent(self) -> bool:
-        """
-        Store the contact list persistently in the database.
-        """
+        """Speichert die Kontaktliste persistent in der Datenbank."""
         self.database.save_contacts(self.contacts)
-        if not self.contacts or len(self.contacts) == 0:
-            return False
-        return True
+        return bool(self.contacts)
 
     def load_persistent(self) -> bool:
-        """
-        Load the contact list from the database.
-        """
+        """Lädt die Kontaktliste aus der Datenbank."""
         contacts = self.database.load_contacts()
-        if contacts is None or len(contacts) == 0:
+        if not contacts:
             return False
         self.contacts = contacts
         return True
-
-

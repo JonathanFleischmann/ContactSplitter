@@ -6,6 +6,9 @@ from data_structures.token import Token, TokenType
 from data_structures.meta_data import MetaData, Language
 
 class Database:
+    """
+    Datenbank-Klasse für das Speichern und Laden von Kontakten mit TinyDB.
+    """
 
     def __init__(self, db_path="contacts.json"):
         self.db_path = db_path
@@ -13,6 +16,9 @@ class Database:
         self.table = self.db.table("contacts")
 
     def contact_to_json(self, contact: Contact) -> dict:
+        """
+        Serialisiert ein Contact-Objekt zu einem JSON-kompatiblen Dictionary.
+        """
         data = asdict(contact)
         for token in data["token_list"]:
             token["type"] = token["type"].value
@@ -21,6 +27,9 @@ class Database:
         return data
 
     def contact_from_json(self, data: dict) -> Contact:
+        """
+        Deserialisiert ein Dictionary zu einem Contact-Objekt.
+        """
         tokens = [Token(TokenType(token["type"]), token["value"]) for token in data["token_list"]]
         meta = data["meta_data"]
         meta_data = MetaData()
