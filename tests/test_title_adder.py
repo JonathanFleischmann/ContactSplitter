@@ -11,14 +11,13 @@ class TestTitleAdder(unittest.TestCase):
         self.adder = TitleAdder(self.scanner)
 
     def test_add_new_title(self):
-        self.adder.add_title("Proff", Language.EN)
+        self.adder.add_title("Proff")
         self.assertIn("Proff", self.scanner.titles)
-        self.assertEqual(self.scanner.titles["Proff"], Language.EN)
 
     def test_add_existing_title_raises(self):
-        self.scanner.titles["Dr."] = Language.EN
+        self.scanner.titles = ["Dr.", "Prof."]
         with self.assertRaises(ValueError) as context:
-            self.adder.add_title("Dr.", Language.EN)
+            self.adder.add_title("Dr.")
         self.assertIn("already exists", str(context.exception))
 
 if __name__ == "__main__":

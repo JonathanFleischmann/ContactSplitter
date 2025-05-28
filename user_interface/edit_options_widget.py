@@ -39,8 +39,6 @@ class EditOptionsWidget:
         Label(edit_options_frame, "Titel hinzufügen:")
         title_adder_frame = Frame(edit_options_frame.frame, None, True)
         self.title_adder_entry = Entry(title_adder_frame, None, True)
-        self.title_adder_language = Combobox(title_adder_frame, [l.value for l in Language], None, True)
-        self.title_adder_language.set_value(Language.DE.value)
         Button(edit_options_frame, "Hinzufügen", lambda: self.add_title()).blue()
 
         # Gender hinzufügen
@@ -74,20 +72,18 @@ class EditOptionsWidget:
     def add_title(self):
         """Fügt einen neuen Titel hinzu."""
         title = self.title_adder_entry.get_value()
-        language = self.title_adder_language.get_value()
 
         if title == "":
             CustomInfo("Titel hinzufügen", "Bitte geben Sie einen Titel ein.")
             return
         
         try: 
-            self.title_adder.add_title(title, Language(language))
+            self.title_adder.add_title(title)
         except ValueError as e:
             CustomInfo("Titel hinzufügen", translate_message_to_german(str(e)))
             return
 
         self.title_adder_entry.clear()
-        self.title_adder_language.set_value(Language.DE.value)
         CustomInfo("Titel hinzufügen", f"Der Titel '{title}' wurde erfolgreich hinzugefügt.")
 
     def add_gender(self):

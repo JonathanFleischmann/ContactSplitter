@@ -9,7 +9,7 @@ class TitleAdder:
     def __init__(self, title_scanner: TitleScanner):
         self.title_scanner = title_scanner
 
-    def add_title(self, title: str, language: Language) -> None:
+    def add_title(self, title: str) -> None:
         """
         Fügt einen neuen Titel mit zugehöriger Sprache hinzu.
         Löst eine Exception aus, wenn der Titel leer ist oder bereits existiert.
@@ -18,4 +18,4 @@ class TitleAdder:
             raise ValueError("Title already exists in dictionary.")
         if title == "":
             raise ValueError("No empty string allowed.")
-        self.title_scanner.titles[title] = language
+        self.title_scanner.titles.append(title)
