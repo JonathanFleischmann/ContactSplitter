@@ -88,8 +88,8 @@ class EditOptionsWidget:
 
         self.gender_adder.add_gender(gender)
         self.gender_adder_entry.clear()
-        self.clear_container()
-        self.display(self.container)
+        self.salutation_adder_gender.add_option(gender)
+        self.letter_greeting_adder_gender.add_option(gender)
 
         CustomInfo("Gender hinzufügen", f"Der Titel '{gender}' wurde erfolgreich hinzugefügt.")
                    
