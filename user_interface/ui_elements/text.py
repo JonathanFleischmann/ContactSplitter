@@ -2,13 +2,15 @@ import tkinter as tk
 from user_interface.ui_elements.frame import Frame
 
 class Text:
-    def __init__(self, parent: Frame, in_one_row=False, flat: bool=False):
+    def __init__(self, parent: Frame, in_one_row=False, flat: bool=False, medium: bool=False):
         self.parent = parent
 
         height = 7
 
         if flat:
             height = 1
+        elif medium:
+            height = 2
 
         self.text = tk.Text(
             self.parent.frame,

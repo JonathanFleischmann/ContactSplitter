@@ -5,11 +5,13 @@ from user_interface.ui_elements.frame import Frame
 from user_interface.saved_contact_widget import SavedContactWidget
 from user_interface.ui_elements.custom_info import CustomInfo
 from user_interface.ui_elements.custom_ask_yes_no import CustomAskYesNo
+from generators.letter_greeting_generator import LetterGreetingGenerator
 
 class ContactPersistencyWidget:
-    def __init__(self, contact_list: ContactList, recent_contact: Contact, container, on_reload_contact_callback, on_save_contact_callback):
+    def __init__(self, contact_list: ContactList, recent_contact: Contact, letter_greeting_generator: LetterGreetingGenerator, container, on_reload_contact_callback, on_save_contact_callback):
         self.contact_list = contact_list
         self.recent_contact = recent_contact
+        self.letter_greeting_generator = letter_greeting_generator
         self.container = container
         self.on_reload_contact_callback = on_reload_contact_callback
         self.on_save_contact_callback = on_save_contact_callback
@@ -29,7 +31,7 @@ class ContactPersistencyWidget:
         
         saved_contacts = self.contact_list.get_contacts()
         for index, contact in zip(reversed(range(len(saved_contacts))), reversed(saved_contacts)):
-            SavedContactWidget(self.persistency_frame, contact, 
+            SavedContactWidget(self.persistency_frame, contact, self.letter_greeting_generator,
                                 on_load_callback=lambda idx=index: self.load_contact(idx),
                                 on_delete_callback=lambda idx=index: self.delete_contact(idx))
             

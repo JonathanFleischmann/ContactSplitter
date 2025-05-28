@@ -91,6 +91,7 @@ class UserInterface:
         ContactPersistencyWidget(
             self.contact_list,
             self.contact,
+            self.letter_greeting_generator,
             self.dynamic_frame,
             self.update_name,
             self.reset_contact
