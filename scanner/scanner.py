@@ -20,7 +20,7 @@ class Scanner:
         self.name_scanner = name_scanner
 
     
-    def scan_string(self, input_string: str) -> Contact:
+    def scan_string(self, input_string: str, ai_enabled: bool = False) -> Contact:
 
         if name_contains_digits(input_string):
             raise ValueError("Name contains digits, which is not allowed.")
@@ -46,7 +46,7 @@ class Scanner:
                 self.name_scanner.scan_name(scanner_state)
 
         if scanner_state.meta_data.gender == None or scanner_state.meta_data.gender == "":
-            if scanner_state.has_first_name():
+            if scanner_state.has_first_name() and ai_enabled:
                 gender = ai_integration.get_gender_for_name(scanner_state.get_first_name())
             else:
                 gender = "Nicht ermittelbar"
